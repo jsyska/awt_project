@@ -39,7 +39,6 @@ jobs:
           name: node-app
           path: .
 
-
   deploy:
     name: deploy to azure
     runs-on: ubuntu-latest
