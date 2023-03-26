@@ -14,35 +14,40 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Set up Node.js version
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
           node-version: '18.x'
+          cache: 'npm'
 
       - name: install, build, and test client
         working-directory: ./client
         run: |
-          npm install
+          npm ci
           npm run build --if-present
 
       - name: install and build server
         working-directory: ./server
         run: |
-          npm install
+          npm ci
           npm run build --if-present
 
       - name: Create env file
-        working-directory: ./server
+        working-directory: ./server/dist
         run: |
           echo "${{ secrets.ENV_FILE }}" > .env
+
+      - name: Create artifact archive
+        run: |
+          tar -czvf node-app.tar.gz ./client ./server
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
           name: node-app
-          path: .
+          path: node-app.tar.gz
 
   deploy:
     name: deploy to azure
@@ -58,9 +63,13 @@ jobs:
         with:
           name: node-app
 
+      - name: Extract artifact
+        run: |
+          tar -xzf node-app.tar.gz
+
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
-        uses: azure/webapps-deploy@v2
+        uses: azure/webapps-deploy@v4
         with:
           app-name: 'netizen-space-test'
           slot-name: 'Production'
