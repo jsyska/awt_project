@@ -7,6 +7,6 @@ const router = express.Router();
 router.get("/:id", verifyToken, getUser);
 router.get("/:id/followers", verifyToken, getUserFollowers);
 router.get("/:id/followings", verifyToken, getUserFollowing);
-router.put("/:id/followerId", verifyToken, followUnfollowUser);
+router.put("/:id/:followerId", verifyToken, followUnfollowUser);
 
 export default router;
