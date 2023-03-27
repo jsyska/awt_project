@@ -78,7 +78,7 @@ export const getUserFollowing = async (req: Request, res: Response) => {
 export const followUnfollowUser = async (req: Request, res: Response) => {
     try {
         const id = req.params.id;
-        const followerId = req.body.followerId;
+        const followerId = req.params.followerId;
         const user = await User.findById(id);
         const follower = await User.findById(followerId);
 
@@ -87,7 +87,7 @@ export const followUnfollowUser = async (req: Request, res: Response) => {
         }
 
         if (!follower) {
-            return res.status(404).json({ errorMessages: 'Friend not found.' });
+            return res.status(404).json({ errorMessages: 'Follower not found.' });
         }
 
         if (user.followings.includes(followerId)) {

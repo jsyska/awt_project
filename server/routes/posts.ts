@@ -1,5 +1,4 @@
 import express from "express";
-import { Request, Response } from "express";
 import { getFeedPosts, getUserPosts, likePost} from "../controllers/posts";
 import { verifyToken } from "../middleware/auth";
 

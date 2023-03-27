@@ -20,8 +20,6 @@ import { createPost } from "../controllers/posts";
 const app: Express = express();
 
 dotenv.config({ path: path.join(__dirname, "..", ".env")});
-console.log(`PORT: ${process.env.PORT}`);
-console.log(`MONGO_URL: ${process.env.MONGO_URL}`);
 
 app.use(express.json());
 app.use(helmet());
@@ -69,10 +67,4 @@ mongoose
 
   })
   .catch((error) => console.log(`${error} did not connect`));
-
-app.get("/", (req: Request, res: Response) => {
-  res.sendFile(path.join(__dirname, "..", "..", "client", "dist", "index.html"));
-});
-
-
 

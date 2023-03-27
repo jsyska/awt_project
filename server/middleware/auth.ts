@@ -6,13 +6,17 @@ export const verifyToken = (req: Request, res: Response, next: NextFunction) => 
         const token: string = req.headers.authorization?.split(" ")[1] as string;
         if (!token) return res.status(403).json({ errorMessages: "Unauthorized" });
 
-        if (token.startsWith("Bearer ")) {
-            const tokenValue = token.slice(7, token.length).trimStart();
-            const decoded: string | JwtPayload = jwt.verify(tokenValue, process.env.JWT_SECRET as string);
-            req.body.user = decoded;
-            next();
-        }
+        const decoded = jwt.verify(token, process.env.JWT_SECRET as string);
+        req.body.user = decoded;
+        next();
+        
     } catch (err: any) {
-        res.status(500).json({ errorMessages: err.message });
+        if (err instanceof jwt.TokenExpiredError) {
+            res.status(401).json({ errorMessages: "Token has expired" });
+          } else if (err instanceof jwt.JsonWebTokenError) {
+            res.status(401).json({ errorMessages: "Invalid token" });
+          } else {
+            res.status(500).json({ errorMessages: err.message });
+          }
     }
 }
