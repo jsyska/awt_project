@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@heroicons/react": "^2.0.16",
     "@reduxjs/toolkit": "^1.9.3",
     "dotenv": "^16.0.3",
     "formik": "^2.2.9",
