@@ -1,7 +1,13 @@
 import React from "react";
+import Navbar from "../../components/navbar";
 
 const ChatPage = () => {
-  return <div>ChatPage</div>;
+  return (
+    <div>
+      <Navbar />
+      Chat
+    </div>
+  );
 };
 
 export default ChatPage;

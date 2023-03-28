@@ -5,6 +5,8 @@ import RegisterPage from "./pages/register";
 import ChatPage from "./pages/chat";
 import ProfilePage from "./pages/profile";
 import Navbar from "./components/navbar";
+import { useSelector } from "react-redux";
+import { AuthState } from "./redux";
 
 function App() {
   if (
@@ -17,19 +19,27 @@ function App() {
     document.documentElement.classList.remove("dark");
   }
 
+  const isAuth = Boolean(useSelector((state: AuthState) => state.token));
+
   return (
-    <div>
-      <BrowserRouter>
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
-          <Route path="/chat" element={<ChatPage />} />
-          <Route path="/profile/:userId" element={<ProfilePage />} />
-        </Routes>
-      </BrowserRouter>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route
+          path="/"
+          element={isAuth ? <HomePage /> : <Navigate to="/login" />}
+        />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route
+          path="/chat"
+          element={isAuth ? <ChatPage /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/profile/:userId"
+          element={isAuth ? <ProfilePage /> : <Navigate to="/login" />}
+        />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

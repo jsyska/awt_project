@@ -4,5 +4,5 @@
 @tailwind utilities;
 
 body {
-  @apply bg-white font-roboto text-slate-900 dark:bg-slate-900 dark:text-white;
+  @apply box-border bg-white font-roboto text-slate-900 dark:bg-slate-900 dark:text-white;
 }
