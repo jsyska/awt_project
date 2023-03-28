@@ -29,9 +29,9 @@ app.use(bodyParser.json({ limit: "30mb" }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use(cors());
 app.use("/assets", express.static(path.join(__dirname, "../public/assets")));
-app.use(express.static(path.join(__dirname, "..", "..", "client", "dist")));
+app.use(express.static(path.join(__dirname, "..", "..", "..", "client", "dist")));
 app.get("*", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "..","..","client", "dist",     
+  res.sendFile(path.resolve(__dirname, "..", "..", "..","client", "dist",     
   "index.html"));
 });
 
