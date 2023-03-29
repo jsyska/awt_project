@@ -37,8 +37,6 @@ const LoginPage = () => {
     const loggedIn = await loggedInResponse.json();
     resetForm();
     if (loggedIn) {
-      console.log(loggedIn.user);
-      console.log(loggedIn.token);
       dispatch(
         setLogin({
           user: loggedIn.user,
