@@ -51,7 +51,7 @@ const RegisterPage = () => {
     formData.append("country", values.country);
 
     const savedUserResponse = await fetch(
-      "http://localhost:3000/auth/register",
+      "/auth/register",
       {
         method: "POST",
         body: formData,
