@@ -8,8 +8,7 @@ import {
   MagnifyingGlassIcon,
   SunIcon,
 } from "@heroicons/react/24/solid";
-import { Menu, Transition } from "@headlessui/react";
-import { Fragment, useEffect, useRef, useState } from "react";
+import { Menu } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 
 const Navbar = () => {
@@ -19,10 +18,10 @@ const Navbar = () => {
   const handleLogout = () => {};
 
   return (
-    <div className="flex items-center justify-between bg-slate-400 py-4 px-8 dark:bg-slate-800">
+    <div className="flex items-center justify-center bg-slate-400 py-4 px-8 dark:bg-slate-800 sm:justify-between">
       <div className="flex items-center justify-between gap-3">
         <Link to="/">
-          <span className="cursor-pointer text-3xl font-bold text-slate-200 hover:text-slate-300">
+          <span className="hidden cursor-pointer text-4xl font-bold text-slate-200 hover:text-slate-300 sm:inline">
             NETIZEN SPACE
           </span>
         </Link>
@@ -36,7 +35,7 @@ const Navbar = () => {
         </div>
       </div>
 
-      <div className="flex items-center justify-between gap-7">
+      <div className="flex items-center justify-between sm:gap-7">
         <SunIcon
           className="h-6 w-6 cursor-pointer dark:text-white max-sm:hidden"
           onClick={() => {
@@ -56,16 +55,21 @@ const Navbar = () => {
 
         <Menu as="div" className="relative inline-block">
           <div>
-            <Menu.Button className="inline-flex w-full justify-center rounded-md bg-slate-100 px-4 py-2 hover:bg-slate-200 dark:bg-slate-900  dark:hover:bg-opacity-80">
-              {`${user?.firstName} ${user?.lastName}`}
-              <ChevronDownIcon
-                className="ml-2 -mr-1 h-5 w-5"
-                aria-hidden="true"
+            <Menu.Button className="inline-flex w-full items-center justify-center gap-1 rounded-md bg-slate-100 px-4 py-2 text-lg hover:bg-slate-200 dark:bg-slate-900 dark:hover:bg-opacity-80">
+              <img
+                src={
+                  user?.imagePath ||
+                  "https://www.civictheatre.ie/wp-content/uploads/2016/05/blank-profile-picture-973460_960_720.png"
+                }
+                alt="Profile pic"
+                className="mr-2 h-10 w-10 rounded-full"
               />
+              {`${user?.firstName} ${user?.lastName}`}
+              <ChevronDownIcon className="h-5 w-5" aria-hidden="true" />
             </Menu.Button>
           </div>
           <Menu.Items
-            className="absolute right-0 mt-2 w-48 origin-top-right divide-y divide-slate-200 rounded-md bg-white
+            className="absolute right-0 mt-2 w-full origin-top-right divide-y divide-slate-200 rounded-md bg-white
            shadow-lg focus:outline-none dark:divide-slate-500 dark:bg-slate-700"
           >
             <div className="px-1 py-1 ">
