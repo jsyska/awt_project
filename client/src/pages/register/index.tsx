@@ -10,6 +10,8 @@ import { DocumentArrowUpIcon } from "@heroicons/react/24/solid";
 interface RegistrationFormData {
   email: string;
   username: string;
+  firstName: string;
+  lastName: string;
   password: string;
   confirm: string;
   picture: File | null;
@@ -24,6 +26,8 @@ const RegisterPage = () => {
   const initialValues: RegistrationFormData = {
     email: "",
     username: "",
+    firstName: "",
+    lastName: "",
     password: "",
     confirm: "",
     picture: null,
@@ -34,12 +38,16 @@ const RegisterPage = () => {
 
   const validationSchema = Yup.object({
     email: Yup.string().email("*Invalid email address").required("*Required"),
-    username: Yup.string()
-      .required("*Required")
-      .min(3, "*At least 3 characters"),
-    password: Yup.string()
-      .min(6, "*At least 6 characters")
+    username: Yup.string().required("*Required").min(3, "*Min 3 characters"),
+    firstName: Yup.string()
+      .min(3, "*Min 3 characters")
+      .max(15, "*Max 15 characters")
       .required("*Required"),
+    lastName: Yup.string()
+      .min(3, "*Min 3 characters")
+      .max(15, "*Max 15 characters")
+      .required("*Required"),
+    password: Yup.string().min(6, "*Min 6 characters").required("*Required"),
     confirm: Yup.string().oneOf(
       [Yup.ref("password"), ""],
       "*Passwords must match"
@@ -51,6 +59,8 @@ const RegisterPage = () => {
     values: RegistrationFormData,
     { resetForm }: { resetForm: () => void }
   ) => {
+    console.log(values);
+
     const formData = new FormData();
     formData.append("email", values.email);
     formData.append("password", values.password);
@@ -114,6 +124,19 @@ const RegisterPage = () => {
                     title="username"
                     type="text"
                     placeholder="E.g. johndoe"
+                  />
+                </div>
+
+                <div className="flex w-full flex-col gap-5 md:flex-row md:gap-3">
+                  <FormInput
+                    title="firstName"
+                    type="text"
+                    placeholder="E.g. John"
+                  />
+                  <FormInput
+                    title="lastName"
+                    type="text"
+                    placeholder="E.g. Doe"
                   />
                 </div>
 
