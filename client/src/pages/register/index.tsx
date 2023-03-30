@@ -65,6 +65,8 @@ const RegisterPage = () => {
     formData.append("email", values.email);
     formData.append("password", values.password);
     formData.append("username", values.username);
+    formData.append("firstName", values.firstName);
+    formData.append("lastName", values.lastName);
     formData.append("occupation", values.occupation);
     formData.append("country", values.country);
     formData.append("picture", values.picture?.name || "");

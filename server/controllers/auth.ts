@@ -9,11 +9,14 @@ export const register = async (req: Request, res: Response) => {
     const hashedPassword = await bcrypt.hash(req.body.password, salt);
 
     const newUser = new User({
+      username: req.body.username,
       firstName: req.body.firstName,
       lastName: req.body.lastName,
       email: req.body.email,
       password: hashedPassword,
       imagePath: req.file ? req.file.path : "",
+      country: req.body.country,
+      occupation: req.body.occupation || "",
     });
 
     const user = await newUser.save();
