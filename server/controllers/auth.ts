@@ -2,11 +2,24 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import User, { IUser, IUserResponse } from "../models/User";
 import { Request, Response } from "express";
+import { uploadToBlobStorage } from "../helpers/azureBlobStorage";
 
 export const register = async (req: Request, res: Response) => {
   try {
     const salt = await bcrypt.genSalt();
     const hashedPassword = await bcrypt.hash(req.body.password, salt);
+
+    let imagePath;
+    if (req.file) {
+      imagePath = await uploadToBlobStorage(
+        "user-images",
+        `${req.body.username}.${req.file.originalname.split(".")[1]}`,
+        req.file.buffer
+      );
+    } else {
+      imagePath =
+        "https://www.civictheatre.ie/wp-content/uploads/2016/05/blank-profile-picture-973460_960_720.png";
+    }
 
     const newUser = new User({
       username: req.body.username,
@@ -14,7 +27,7 @@ export const register = async (req: Request, res: Response) => {
       lastName: req.body.lastName,
       email: req.body.email,
       password: hashedPassword,
-      imagePath: req.file ? req.file.path : "",
+      imagePath: imagePath,
       country: req.body.country,
       occupation: req.body.occupation || "",
     });

@@ -59,8 +59,6 @@ const RegisterPage = () => {
     values: RegistrationFormData,
     { resetForm }: { resetForm: () => void }
   ) => {
-    console.log(values);
-
     const formData = new FormData();
     formData.append("email", values.email);
     formData.append("password", values.password);
@@ -69,7 +67,7 @@ const RegisterPage = () => {
     formData.append("lastName", values.lastName);
     formData.append("occupation", values.occupation);
     formData.append("country", values.country);
-    formData.append("picture", values.picture?.name || "");
+    values.picture && formData.append("picture", values.picture);
 
     const savedUserResponse = await fetch(
       "http://localhost:3000/auth/register",
