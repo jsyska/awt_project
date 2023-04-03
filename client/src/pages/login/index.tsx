@@ -4,6 +4,7 @@ import * as Yup from "yup";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setLogin } from "../../redux";
+import FormInput from "../../components/formInput";
 
 interface LoginFormData {
   email: string;
@@ -70,42 +71,18 @@ const LoginPage = () => {
                     Please log in using your email and password.
                   </p>
                 </div>
-                {/* Email */}
-                <div className="flex flex-col gap-1">
-                  <div className="flex items-center justify-between">
-                    <label htmlFor="email" className="text-xl font-bold">
-                      Email
-                    </label>
-                    <ErrorMessage
-                      name="email"
-                      component="div"
-                      className="text-xs"
-                    />
-                  </div>
-                  <Field
-                    name="email"
-                    type="text"
-                    className="rounded-md p-3 text-xl text-slate-900 dark:bg-slate-900 dark:text-white"
-                  />
-                </div>
-                {/* Password */}
-                <div className="flex flex-col gap-1">
-                  <div className="flex items-center justify-between">
-                    <label htmlFor="password" className="text-xl font-bold">
-                      Password
-                    </label>
-                    <ErrorMessage
-                      name="password"
-                      component="div"
-                      className="text-xs"
-                    />
-                  </div>
-                  <Field
-                    name="password"
-                    type="password"
-                    className="rounded-md p-3 text-xl text-slate-900 dark:bg-slate-900 dark:text-white"
-                  />
-                </div>
+                <FormInput
+                  title="email"
+                  type="email"
+                  placeholder="E.g. johndoe@example.com"
+                  fullWidth={true}
+                />
+                <FormInput
+                  title="password"
+                  type="password"
+                  placeholder="Password"
+                  fullWidth={true}
+                />
 
                 {/* Submit */}
                 <button

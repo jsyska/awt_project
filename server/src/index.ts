@@ -19,7 +19,7 @@ import { createPost } from "../controllers/posts";
 
 const app: Express = express();
 
-dotenv.config({ path: path.join(__dirname, "..", ".env")});
+dotenv.config({ path: path.join(__dirname, "..", ".env") });
 
 app.use(express.json());
 app.use(helmet());
@@ -35,18 +35,11 @@ app.get("*", (req, res) => {
   "index.html"));
 });
 
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "public/assets");
-  },
-  filename: function (req, file, cb) {
-    cb(null, file.originalname);
-  },
-});
+const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
 const PORT = process.env.PORT || 3000;
-const MONGO_URL = process.env.MONGO_URL || '';
+const MONGO_URL = process.env.MONGO_URL || "";
 
 app.post("/auth/register", upload.single("picture"), register);
 app.post("/posts", verifyToken, upload.single("picture"), createPost);
@@ -57,7 +50,7 @@ app.use("/posts", postRoutes);
 
 mongoose
   .connect(MONGO_URL, {
-    ...{ useUnifiedTopology: true }
+    ...{ useUnifiedTopology: true },
   } as ConnectOptions)
   .then(() => {
     app.listen(PORT, () => console.log(`Server Port: ${PORT}`));
@@ -69,7 +62,5 @@ mongoose
     // } catch (err: any) {
     //   console.log(err.message);
     // }
-
   })
   .catch((error) => console.log(`${error} did not connect`));
-
