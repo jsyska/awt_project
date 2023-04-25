@@ -6,6 +6,10 @@ import {
     ShareIcon,
 } from "@heroicons/react/24/solid";
 import { Link } from "react-router-dom";
+import relativeTime from "dayjs/plugin/relativeTime";
+import dayjs from "dayjs";
+
+dayjs.extend(relativeTime);
 
 const PostView = ({ post }: { post: Post }) => {
     const defaultImage =
@@ -25,22 +29,30 @@ const PostView = ({ post }: { post: Post }) => {
         : defaultImage;
     const image = validURL(post.imagePath) ? post.imagePath : null;
 
+    const postDate = dayjs(post.createdAt?.toLocaleString());
+    const displayDate = postDate.isAfter(dayjs().subtract(1, "day"))
+        ? postDate.fromNow()
+        : postDate.format("DD MMM");
+
     return (
         <div className="flex flex-col gap-3 rounded-md bg-slate-400 p-4 dark:bg-slate-800">
-            <div className="flex items-center gap-3">
-                <Link to={`/profile/${post.userId}`}>
-                    <img
-                        className="h-14 w-14 rounded-full bg-white hover:brightness-90"
-                        src={profileImage}
-                        alt={`${post.username}'s profile pic`}
-                    />
-                </Link>
-                <div className="flex flex-col">
+            <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
                     <Link to={`/profile/${post.userId}`}>
-                        <span className="font-bold hover:underline">{`${post.firstName} ${post.lastName}`}</span>
+                        <img
+                            className="h-14 w-14 rounded-full bg-white hover:brightness-90"
+                            src={profileImage}
+                            alt={`${post.username}'s profile pic`}
+                        />
                     </Link>
-                    <span>@{post.username ?? "username"}</span>
+                    <div className="flex flex-col">
+                        <Link to={`/profile/${post.userId}`}>
+                            <span className="font-bold hover:underline">{`${post.firstName} ${post.lastName}`}</span>
+                        </Link>
+                        <span>@{post.username ?? "username"}</span>
+                    </div>
                 </div>
+                <div>{displayDate} </div>
             </div>
             <div className="text-xl">{post.description}</div>
             {image && (
