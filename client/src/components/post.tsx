@@ -20,8 +20,8 @@ const PostView = ({ post }: { post: Post }) => {
         }
     };
 
-    const profileImage = validURL(post.imagePath)
-        ? post.imagePath
+    const profileImage = validURL(post.userImagePath)
+        ? post.userImagePath
         : defaultImage;
     const image = validURL(post.imagePath) ? post.imagePath : null;
 
