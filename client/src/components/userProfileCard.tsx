@@ -12,9 +12,7 @@ const UserProfileCard: React.FC = (): JSX.Element => {
     const dispatch = useDispatch();
 
     return (
-        <div className=" flex p-5 w-3/5 overflow-auto">
-            <div className="flex flex-col bg-slate-400 p-7 dark:bg-slate-800 sm:w-4/5 md:w-3/5 md:rounded-lg xl:w-2/5">
-
+            <div className="flex flex-col w-full h-2/3 bg-slate-400 p-7 rounded-lg dark:bg-slate-800 ">
                 <div className=' flex flex-row w-full place-content-between'>
                     <img
                         src={
@@ -53,7 +51,6 @@ const UserProfileCard: React.FC = (): JSX.Element => {
                 </div>
 
             </div>
-        </div>
     )
 }
 
