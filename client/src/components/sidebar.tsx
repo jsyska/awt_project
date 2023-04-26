@@ -19,7 +19,7 @@ const Sidebar = () => {
     return (
         <aside
             id="logo-sidebar"
-            className="sticky top-2 left-0 z-40 h-screen w-full -translate-x-full text-xl transition-transform sm:translate-x-0"
+            className="sticky top-0 left-0 z-40 h-screen w-full -translate-x-full text-xl transition-transform sm:translate-x-0"
             aria-label="Sidebar"
         >
             <div className="h-full overflow-y-auto bg-gray-50 px-3 py-4 dark:bg-transparent">

@@ -11,6 +11,7 @@ export const createPost = async (req: Request, res: Response) => {
             userId,
             firstName: user?.firstName,
             lastName: user?.lastName,
+            username: user?.username,
             description,
             imagePath,
             userImagePath: user?.imagePath,
@@ -27,7 +28,7 @@ export const createPost = async (req: Request, res: Response) => {
 
 export const getFeedPosts = async (req: Request, res: Response) => {
     try {
-        const post = await Post.find();
+        const post = await Post.find().sort({ createdAt: "desc" });
         res.status(200).json(post);
     } catch (err: any) {
         res.status(404).json({ errorMessages: err.message });

@@ -6,6 +6,7 @@ import UserProfileCard from "../../components/userProfileCard";
 import { useSelector } from "react-redux";
 import { AuthState } from "../../redux";
 import Spinner from "../../components/loadingSpinner";
+import Sidebar from "../../components/sidebar";
 
 const ProfilePage = () => {
     const [user, setUser] = useState(null);
@@ -19,8 +20,6 @@ const ProfilePage = () => {
             headers: { Authorization: `Bearer ${token}` },
         });
         const data = await response.json();
-        console.log(data);
-
         setUser(data);
     };
 
@@ -28,21 +27,20 @@ const ProfilePage = () => {
         getUser();
     }, []);
 
-    return user ? (
-        <div className="flex flex-col items-center justify-center gap-3">
-            <Navbar />
-            <div className="flex flex-col gap-8 md:w-2/3 md:flex-row">
-                <div className="h-fit md:sticky md:top-3 md:w-1/3">
+    return (
+        <div className="flex gap-3 px-52">
+            <div className="w-1/5">
+                <Sidebar />
+            </div>
+            {user ? (
+                <div className="flex w-2/4 flex-col gap-3">
                     <UserProfileCard user={user} />
-                </div>
-                <div className="md:w-2/3">
                     <Posts isProfile={true} userId={userId} />
                 </div>
-            </div>
-        </div>
-    ) : (
-        <div className="flex h-screen items-center justify-center">
-            <Spinner />
+            ) : (
+                <Spinner />
+            )}
+            <div className="w-1/5">reklamy</div>
         </div>
     );
 };
