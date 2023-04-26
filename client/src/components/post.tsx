@@ -46,7 +46,7 @@ const PostView = ({ post }: { post: Post }) => {
 
     const patchLike = async () => {
         const response = await fetch(
-            `http://localhost:3001/posts/${post._id}/like`,
+            `/posts/${post._id}/like`,
             {
                 method: "PATCH",
                 headers: {

@@ -17,7 +17,7 @@ const Posts = ({
     const [fetching, setFetching] = useState(true);
 
     const fetchPosts = async () => {
-        const response = await fetch("http://localhost:3001/posts/feed", {
+        const response = await fetch("/posts/feed", {
             method: "GET",
             headers: {
                 Authorization: `Bearer ${token}`,
@@ -30,7 +30,7 @@ const Posts = ({
 
     const fetchSingleUserPosts = async () => {
         const response = await fetch(
-            `http://localhost:3001/posts/${userId}/posts`,
+            `/posts/${userId}/posts`,
             {
                 method: "GET",
                 headers: {
