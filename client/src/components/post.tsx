@@ -1,5 +1,4 @@
-import React from "react";
-import { Post } from "../redux";
+import { AuthState, Post, setPost } from "../redux";
 import {
     RocketLaunchIcon,
     ChatBubbleBottomCenterTextIcon,
@@ -8,10 +7,21 @@ import {
 import { Link } from "react-router-dom";
 import relativeTime from "dayjs/plugin/relativeTime";
 import dayjs from "dayjs";
+import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
 
 dayjs.extend(relativeTime);
 
 const PostView = ({ post }: { post: Post }) => {
+    const userId = useSelector((state: AuthState) => state.user?._id);
+    const token = useSelector((state: AuthState) => state.token);
+    const [likeEffect, setLikeEffect] = useState(false);
+
+    const isLiked = userId
+        ? Boolean(Object.keys(post.likes).includes(userId))
+        : false;
+    const dispatch = useDispatch();
+
     const defaultImage =
         "https://cdn1.iconfinder.com/data/icons/avatar-3/512/Astronaut-512.png";
 
@@ -34,13 +44,29 @@ const PostView = ({ post }: { post: Post }) => {
         ? postDate.fromNow()
         : postDate.format("DD MMM");
 
+    const patchLike = async () => {
+        const response = await fetch(
+            `http://localhost:3000/posts/${post._id}/like`,
+            {
+                method: "PATCH",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ userId: userId }),
+            }
+        );
+        const data = await response.json();
+        dispatch(setPost({ post: data }));
+    };
+
     return (
         <div className="flex flex-col gap-3 rounded-md bg-slate-400 p-4 dark:bg-slate-800">
             <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
                     <Link to={`/profile/${post.userId}`}>
                         <img
-                            className="h-14 w-14 rounded-full bg-white hover:brightness-90"
+                            className="h-14 w-14 rounded-full bg-white object-cover hover:brightness-90"
                             src={profileImage}
                             alt={`${post.username}'s profile pic`}
                         />
@@ -65,7 +91,18 @@ const PostView = ({ post }: { post: Post }) => {
             <div className="w-full border-t-2 border-slate-500 dark:border-slate-100"></div>
             <div className="flex">
                 <div className=" flex flex-1 items-center justify-center gap-2">
-                    <RocketLaunchIcon className="h-9 w-9 cursor-pointer rounded-md p-2 hover:bg-gray-300 dark:hover:bg-gray-600" />
+                    <RocketLaunchIcon
+                        className={`h-9 w-9 cursor-pointer rounded-md p-2 hover:bg-gray-300 dark:hover:bg-gray-600 
+                        ${isLiked && "text-yellow-400"} 
+                        ${likeEffect && "animate-like"}`}
+                        onClick={() => {
+                            patchLike();
+                            if (!isLiked) {
+                                setLikeEffect(true);
+                            }
+                        }}
+                        onAnimationEnd={() => setLikeEffect(false)}
+                    />
                     <span>{Object.keys(post.likes).length}</span>
                 </div>
                 <div className="flex flex-1 items-center justify-center gap-2">
