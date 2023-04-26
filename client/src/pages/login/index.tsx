@@ -25,7 +25,7 @@ const LoginPage = () => {
     { resetForm }: { resetForm: () => void }
   ) => {
     const loggedInResponse = await fetch(
-      "http://localhost:3000/auth/login",
+      "http://localhost:3001/auth/login",
 
       {
         method: "POST",

@@ -51,12 +51,12 @@ const UserProfileCard = ({ user }: { user: User }) => {
 
             <div className=" flex w-full flex-row place-content-between pt-8">
                 <p className="dark:text-gray-400">Followers</p>
-                <p className="dark:text-white">{user?.followers.length}</p>
+                <p className="dark:text-white">{user?.followers?.length}</p>
             </div>
 
             <div className=" flex w-full flex-row place-content-between">
                 <p className="dark:text-gray-400">Followings</p>
-                <p className="dark:text-white">{user?.followings.length}</p>
+                <p className="dark:text-white">{user?.followings?.length}</p>
             </div>
         </div>
     );

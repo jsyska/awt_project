@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import { AuthState } from "../../redux";
 import Spinner from "../../components/loadingSpinner";
 import Sidebar from "../../components/sidebar";
+import TempComponent from "../../components/tempComponent";
 
 const ProfilePage = () => {
     const [user, setUser] = useState(null);
@@ -15,7 +16,7 @@ const ProfilePage = () => {
     console.log(user);
 
     const getUser = async () => {
-        const response = await fetch(`http://localhost:3000/users/${userId}`, {
+        const response = await fetch(`http://localhost:3001/users/${userId}`, {
             method: "GET",
             headers: { Authorization: `Bearer ${token}` },
         });
@@ -32,15 +33,17 @@ const ProfilePage = () => {
             <div className="w-1/5">
                 <Sidebar />
             </div>
-            {user ? (
-                <div className="flex w-2/4 flex-col gap-3">
-                    <UserProfileCard user={user} />
-                    <Posts isProfile={true} userId={userId} />
-                </div>
-            ) : (
-                <Spinner />
-            )}
-            <div className="w-1/5">reklamy</div>
+                {user ? (
+                    <div className="flex w-2/4 flex-col gap-3 mt-5">
+                        <UserProfileCard user={user} />
+                        <Posts isProfile={true} userId={userId} />
+                    </div>
+                ) : (
+                    <Spinner />
+                )}
+            <div className="w-1/5">
+                <TempComponent />
+            </div>
         </div>
     );
 };

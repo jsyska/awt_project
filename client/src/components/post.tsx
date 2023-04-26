@@ -46,7 +46,7 @@ const PostView = ({ post }: { post: Post }) => {
 
     const patchLike = async () => {
         const response = await fetch(
-            `http://localhost:3000/posts/${post._id}/like`,
+            `http://localhost:3001/posts/${post._id}/like`,
             {
                 method: "PATCH",
                 headers: {
@@ -103,11 +103,11 @@ const PostView = ({ post }: { post: Post }) => {
                         }}
                         onAnimationEnd={() => setLikeEffect(false)}
                     />
-                    <span>{Object.keys(post.likes).length}</span>
+                    <span>{Object.keys(post.likes)?.length}</span>
                 </div>
                 <div className="flex flex-1 items-center justify-center gap-2">
                     <ChatBubbleBottomCenterTextIcon className="h-9 w-9 cursor-pointer rounded-md p-2 hover:bg-gray-300 dark:hover:bg-gray-600" />
-                    <span>{Object.keys(post.comments).length}</span>
+                    <span>{Object.keys(post.comments)?.length}</span>
                 </div>
                 <div className="flex flex-1 items-center justify-center gap-2">
                     <ShareIcon className="h-9 w-9 cursor-pointer rounded-md p-2 hover:bg-gray-300 dark:hover:bg-gray-600" />
