@@ -12,7 +12,7 @@ export const createPost = async (req: Request, res: Response) => {
         if (req.file) {
           imagePath = await uploadToBlobStorage(
             "posts-images",
-            `${req.file.filename}`,
+            `${Date.now()}-${userId}`,
             req.file.buffer
           );
         } else {

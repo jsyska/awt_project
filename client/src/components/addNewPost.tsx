@@ -54,58 +54,68 @@ const AddNewPost: React.FC = (): JSX.Element => {
     <>
       <div className="w-full mb-4 border border-gray-200 rounded-lg bg-gray-50 dark:bg-slate-800 dark:border-gray-600">
         <div className="px-4 py-2 bg-white rounded-t-lg dark:bg-slate-900">
-          <textarea
-            ref={textareaRef}
-            onChange={(e) => {
-              setPost(e.target.value);
-              resizeTextarea();
-            }}
-            value={post}
-            id="postContent"
-            rows={1}
-            className="block mx-4 p-2.5 w-full text-xl text-gray-900 bg-transparent rounded-lg border-0 focus:border-0 focus:ring-0 dark:placeholder-gray-400 dark:text-white dark:focus:ring-0 dark:focus:border-0 resize-none overflow-auto max-h-[600px] scrollbar-width-none hide-scrollbar"
-            placeholder={`Hello ${user?.firstName}, whats happening?`}
-          />
-          {isImage && (
-            <div className='flex flex-row gap-2 items-center'>
-              <Dropzone
-                accept={{
-                  "image/png": [".png"],
-                  "image/jpeg": [".jpeg", ".jpg"],
-                }}
-                multiple={false}
-                onDrop={(acceptedFiles) =>
-                  setImage(acceptedFiles[0])
-                }
-              >
-                {({ getRootProps, getInputProps }) => (
-                  <div
-                    {...getRootProps()}
-                    className="flex w-full  m-6 cursor-pointer bg-gray-300 items-center justify-center rounded-md p-3 text-sm
+          <div className='flex flex-row'>
+            <img
+              src={
+                user?.imagePath ||
+                "https://www.civictheatre.ie/wp-content/uploads/2016/05/blank-profile-picture-973460_960_720.png"
+              }
+              alt="Profile pic"
+              className="mr-2 h-10 w-10 rounded-full object-cover"
+            />
+            <textarea
+              ref={textareaRef}
+              onChange={(e) => {
+                setPost(e.target.value);
+                resizeTextarea();
+              }}
+              value={post}
+              id="postContent"
+              rows={1}
+              className="outline-none block  p-2.5 mr-8 w-full text-xl text-gray-900 bg-transparent rounded-lg focus:ring-0 dark:placeholder-gray-400 dark:text-white dark:focus:ring-0 dark:focus:border-0 resize-none overflow-auto max-h-[400px] scrollbar-width-none hide-scrollbar"
+              placeholder={`Hello ${user?.firstName}, whats poppin?`}
+            />
+            {isImage && (
+              <div className='flex flex-row gap-2 items-center'>
+                <Dropzone
+                  accept={{
+                    "image/png": [".png"],
+                    "image/jpeg": [".jpeg", ".jpg"],
+                  }}
+                  multiple={false}
+                  onDrop={(acceptedFiles) =>
+                    setImage(acceptedFiles[0])
+                  }
+                >
+                  {({ getRootProps, getInputProps }) => (
+                    <div
+                      {...getRootProps()}
+                      className="flex w-full  m-6 cursor-pointer bg-gray-300 items-center justify-center rounded-md p-3 text-sm
                        text-slate-100 dark:bg-slate-800 dark:text-slate-500"
-                  >
-                    {!image && <DocumentArrowUpIcon className="mr-2 h-5 w-5 " />}
-                    <div className='relative'>
+                    >
+                      {!image && <DocumentArrowUpIcon className="mr-2 h-5 w-5 " />}
+                      <div className='relative'>
 
-                      <p>
-                        {image &&
-                          <TrashIcon
-                            className='absolute right-0 m-3 p-2 h-12 w-12 text-white ml-auto rounded-full cursor-pointer hover:bg-blue-100 dark:hover:bg-gray-700 bg-slate-900'
-                            onClick={(event) => {
-                              setImage(null)
-                              event.stopPropagation()
-                            }} />
-                        }
-                        {image
-                          ? <img className="h-auto mx-auto rounded-lg" src={URL.createObjectURL(image)} alt="image description" />
-                          : "Click to upload or drag and drop"}
-                      </p>
+                        <p>
+                          {image &&
+                            <TrashIcon
+                              className='absolute right-0 m-3 p-2 h-12 w-12 text-white ml-auto rounded-full cursor-pointer hover:bg-blue-100 dark:hover:bg-gray-700 bg-slate-900'
+                              onClick={(event) => {
+                                setImage(null)
+                                event.stopPropagation()
+                              }} />
+                          }
+                          {image
+                            ? <img className="h-auto mx-auto rounded-lg" src={URL.createObjectURL(image)} alt="image description" />
+                            : "Click to upload or drag and drop"}
+                        </p>
+                      </div>
+                      <input {...getInputProps()} />
                     </div>
-                    <input {...getInputProps()} />
-                  </div>
-                )}
-              </Dropzone>
-            </div>)}
+                  )}
+                </Dropzone>
+              </div>)}
+          </div>
         </div>
         <div className="flex items-center justify-between px-3 py-2 border-t dark:border-gray-600">
           <div className="flex pl-0 space-x-1 sm:pl-2">
@@ -119,18 +129,18 @@ const AddNewPost: React.FC = (): JSX.Element => {
               <FaceSmileIcon onClick={() => setShowEmojis(!showEmojis)} className="inline-flex justify-center w-12 p-2 rounded-lg cursor-pointer hover:bg-gray-100 text-white dark:hover:bg-gray-600" />
               <div className='absolute left-'>
                 {showEmojis && (
-                  <EmojiPicker 
-                  emojiStyle={EmojiStyle.NATIVE}
-                  onEmojiClick={(emoji) => {
-                    setPost(post + emoji.emoji)
-                    setShowEmojis(false);
-                  }}/>
+                  <EmojiPicker
+                    emojiStyle={EmojiStyle.NATIVE}
+                    onEmojiClick={(emoji) => {
+                      setPost(post + emoji.emoji)
+                      setShowEmojis(false);
+                    }} />
                 )}
               </div>
             </div>
           </div>
           {!postUploading && <PaperAirplaneIcon onClick={post ? handlePost : undefined} className={`${!post ? 'hidden' : ''} inline-flex justify-center w-12 p-2 rounded-lg cursor-pointer hover:bg-gray-100 text-white dark:hover:bg-gray-600`} />}
-          {postUploading && <Spinner/>}
+          {postUploading && <Spinner />}
         </div>
       </div>
     </>
