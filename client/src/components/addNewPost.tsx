@@ -75,47 +75,47 @@ const AddNewPost: React.FC = (): JSX.Element => {
               className="outline-none block  p-2.5 mr-8 w-full text-xl text-gray-900 bg-transparent rounded-lg focus:ring-0 dark:placeholder-gray-400 dark:text-white dark:focus:ring-0 dark:focus:border-0 resize-none overflow-auto max-h-[400px] scrollbar-width-none hide-scrollbar"
               placeholder={`Hello ${user?.firstName}, whats poppin?`}
             />
-            {isImage && (
-              <div className='flex flex-row gap-2 items-center'>
-                <Dropzone
-                  accept={{
-                    "image/png": [".png"],
-                    "image/jpeg": [".jpeg", ".jpg"],
-                  }}
-                  multiple={false}
-                  onDrop={(acceptedFiles) =>
-                    setImage(acceptedFiles[0])
-                  }
-                >
-                  {({ getRootProps, getInputProps }) => (
-                    <div
-                      {...getRootProps()}
-                      className="flex w-full  m-6 cursor-pointer bg-gray-300 items-center justify-center rounded-md p-3 text-sm
-                       text-slate-100 dark:bg-slate-800 dark:text-slate-500"
-                    >
-                      {!image && <DocumentArrowUpIcon className="mr-2 h-5 w-5 " />}
-                      <div className='relative'>
-
-                        <p>
-                          {image &&
-                            <TrashIcon
-                              className='absolute right-0 m-3 p-2 h-12 w-12 text-white ml-auto rounded-full cursor-pointer hover:bg-blue-100 dark:hover:bg-gray-700 bg-slate-900'
-                              onClick={(event) => {
-                                setImage(null)
-                                event.stopPropagation()
-                              }} />
-                          }
-                          {image
-                            ? <img className="h-auto mx-auto rounded-lg" src={URL.createObjectURL(image)} alt="image description" />
-                            : "Click to upload or drag and drop"}
-                        </p>
-                      </div>
-                      <input {...getInputProps()} />
-                    </div>
-                  )}
-                </Dropzone>
-              </div>)}
           </div>
+          {isImage && (
+            <div className='flex flex-row gap-2 items-center'>
+              <Dropzone
+                accept={{
+                  "image/png": [".png"],
+                  "image/jpeg": [".jpeg", ".jpg"],
+                }}
+                multiple={false}
+                onDrop={(acceptedFiles) =>
+                  setImage(acceptedFiles[0])
+                }
+              >
+                {({ getRootProps, getInputProps }) => (
+                  <div
+                    {...getRootProps()}
+                    className="flex w-full  m-6 cursor-pointer bg-gray-300 items-center justify-center rounded-md p-3 text-sm
+                       text-slate-100 dark:bg-slate-800 dark:text-slate-500"
+                  >
+                    {!image && <DocumentArrowUpIcon className="mr-2 h-5 w-5 " />}
+                    <div className='relative'>
+
+                      <p>
+                        {image &&
+                          <TrashIcon
+                            className='absolute right-0 m-3 p-2 h-12 w-12 text-white ml-auto rounded-full cursor-pointer hover:bg-blue-100 dark:hover:bg-gray-700 bg-slate-900'
+                            onClick={(event) => {
+                              setImage(null)
+                              event.stopPropagation()
+                            }} />
+                        }
+                        {image
+                          ? <img className="h-auto mx-auto rounded-lg" src={URL.createObjectURL(image)} alt="image description" />
+                          : "Click to upload or drag and drop"}
+                      </p>
+                    </div>
+                    <input {...getInputProps()} />
+                  </div>
+                )}
+              </Dropzone>
+            </div>)}
         </div>
         <div className="flex items-center justify-between px-3 py-2 border-t dark:border-gray-600">
           <div className="flex pl-0 space-x-1 sm:pl-2">
