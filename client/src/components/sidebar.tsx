@@ -32,7 +32,7 @@ const Sidebar = () => {
                 <ul className="space-y-2 font-medium">
                     <li>
                         <Link to={"/"}>
-                            <div className="flex items-center rounded-lg p-2 hover:bg-gray-100 dark:hover:bg-gray-700">
+                            <div onClick={() => scrollTo({top:0, behavior:"smooth"})} className="flex items-center rounded-lg p-2 hover:bg-gray-100 dark:hover:bg-gray-700">
                                 <HomeIcon className="h-6 w-6" />
                                 <span className="ml-3">Home</span>
                             </div>
