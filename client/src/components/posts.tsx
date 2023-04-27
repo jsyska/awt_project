@@ -17,7 +17,7 @@ const Posts = ({
     const [fetching, setFetching] = useState(true);
 
     const fetchPosts = async () => {
-        const response = await fetch("http://localhost:3000/posts/feed", {
+        const response = await fetch("http://localhost:3001/posts/feed", {
             method: "GET",
             headers: {
                 Authorization: `Bearer ${token}`,
@@ -30,7 +30,7 @@ const Posts = ({
 
     const fetchSingleUserPosts = async () => {
         const response = await fetch(
-            `http://localhost:3000/posts/${userId}/posts`,
+            `http://localhost:3001/posts/${userId}/posts`,
             {
                 method: "GET",
                 headers: {
@@ -55,7 +55,7 @@ const Posts = ({
         <Spinner />
     ) : (
         <div className="flex flex-col gap-3">
-            {posts.length ? (
+            {posts?.length ? (
                 posts?.map((post) => <PostView post={post} key={post._id} />)
             ) : (
                 <div className="text-center text-xl">

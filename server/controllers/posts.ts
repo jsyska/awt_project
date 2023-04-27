@@ -1,11 +1,23 @@
 import Post from "../models/Post";
 import { Request, Response } from "express";
 import User from "../models/User";
+import { uploadToBlobStorage } from "../helpers/azureBlobStorage";
 
 export const createPost = async (req: Request, res: Response) => {
     try {
-        const { userId, description, imagePath } = req.body;
+        const { userId, description } = req.body;
         const user = await User.findById(userId);
+
+        let imagePath;
+        if (req.file) {
+          imagePath = await uploadToBlobStorage(
+            "posts-images",
+            `${req.file.filename}`,
+            req.file.buffer
+          );
+        } else {
+          imagePath = "";
+        }
 
         const newPost = new Post({
             userId,
@@ -19,7 +31,7 @@ export const createPost = async (req: Request, res: Response) => {
             comments: {},
         });
         await newPost.save();
-        const post = await Post.find();
+        const post = await Post.find().sort({ createdAt: "desc" });
         res.status(201).json(post);
     } catch (err: any) {
         res.status(409).json({ errorMessages: err.message });
@@ -38,7 +50,7 @@ export const getFeedPosts = async (req: Request, res: Response) => {
 export const getUserPosts = async (req: Request, res: Response) => {
     try {
         const userId = req.params.userId;
-        const post = await Post.find({ userId });
+        const post = await Post.find({ userId }).sort({ createdAt: "desc" });
         res.status(200).json(post);
     } catch (err: any) {
         res.status(404).json({ errorMessages: err.message });
