@@ -18,7 +18,7 @@ const AddNewPost: React.FC = (): JSX.Element => {
     const [isImage, setIsImage] = useState(false);
     const [image, setImage] = useState<File | null>(null);
     const [post, setPost] = useState<string>("");
-    const { _id } = useSelector((state: any) => state.user);
+    const { username } = useSelector((state: any) => state.user);
     const token = useSelector((state: any) => state.token);
     const user = useSelector((state: AuthState) => state.user);
     const [showEmojis, setShowEmojis] = useState(false);
@@ -28,7 +28,7 @@ const AddNewPost: React.FC = (): JSX.Element => {
     const handlePost = async () => {
         setPostUploading(true);
         const formData = new FormData();
-        formData.append("userId", _id);
+        formData.append("username", username);
         formData.append("description", post);
         if (image) {
             formData.append("picture", image);

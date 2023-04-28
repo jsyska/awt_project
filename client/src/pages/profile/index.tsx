@@ -9,15 +9,18 @@ import MainLayout from "../../components/layout";
 
 const ProfilePage = () => {
     const [user, setUser] = useState(null);
-    const { userId } = useParams();
+    const { username } = useParams();
     const token = useSelector((state: AuthState) => state.token);
     console.log(user);
 
     const getUser = async () => {
-        const response = await fetch(`http://localhost:3001/users/${userId}`, {
-            method: "GET",
-            headers: { Authorization: `Bearer ${token}` },
-        });
+        const response = await fetch(
+            `http://localhost:3001/users/${username}`,
+            {
+                method: "GET",
+                headers: { Authorization: `Bearer ${token}` },
+            }
+        );
         const data = await response.json();
         setUser(data);
     };
@@ -31,7 +34,7 @@ const ProfilePage = () => {
             {user ? (
                 <>
                     <UserProfileCard user={user} />
-                    <Posts isProfile={true} userId={userId} />
+                    <Posts isProfile={true} username={username} />
                 </>
             ) : (
                 <Spinner />

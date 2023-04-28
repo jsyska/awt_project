@@ -5,11 +5,11 @@ import PostView from "./post";
 import Spinner from "./loadingSpinner";
 
 const Posts = ({
-    userId,
+    username,
     isProfile = false,
 }: {
     isProfile?: boolean;
-    userId?: string;
+    username?: string;
 }) => {
     const dispatch = useDispatch();
     const posts = useSelector((state: AuthState) => state.posts);
@@ -30,7 +30,7 @@ const Posts = ({
 
     const fetchSingleUserPosts = async () => {
         const response = await fetch(
-            `http://localhost:3001/posts/${userId}/posts`,
+            `http://localhost:3001/posts/${username}/posts`,
             {
                 method: "GET",
                 headers: {

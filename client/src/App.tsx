@@ -34,7 +34,7 @@ function App() {
                     element={isAuth ? <ChatPage /> : <Navigate to="/login" />}
                 />
                 <Route
-                    path="/profile/:userId"
+                    path="/:username"
                     element={
                         isAuth ? <ProfilePage /> : <Navigate to="/login" />
                     }

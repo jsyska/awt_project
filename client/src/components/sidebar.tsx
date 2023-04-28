@@ -28,12 +28,19 @@ const Sidebar = ({ isMobile = false }: { isMobile?: boolean }) => {
         >
             <div className="h-full overflow-y-auto bg-gray-50 px-3 py-4 dark:bg-transparent">
                 {!isMobile && (
-                    <div className="mb-7 flex items-center gap-2">
-                        <span className="text-3xl">🚀</span>
-                        <span className="hidden self-center whitespace-nowrap text-2xl font-semibold dark:text-white xl:inline">
-                            Netizen Space
-                        </span>
-                    </div>
+                    <Link to={"/"}>
+                        <div
+                            className="mb-7 flex items-center gap-2"
+                            onClick={() =>
+                                scrollTo({ top: 0, behavior: "smooth" })
+                            }
+                        >
+                            <span className="text-3xl">🚀</span>
+                            <span className="hidden self-center whitespace-nowrap text-2xl font-semibold dark:text-white xl:inline">
+                                Netizen Space
+                            </span>
+                        </div>
+                    </Link>
                 )}
                 <ul className="space-y-2 border-b border-gray-200 pb-4 font-medium dark:border-gray-700">
                     <li>
@@ -82,7 +89,7 @@ const Sidebar = ({ isMobile = false }: { isMobile?: boolean }) => {
                         </div>
                     </li>
                     <li>
-                        <Link to={`/profile/${user?._id}`}>
+                        <Link to={`/${user?.username}`}>
                             <div className="flex w-fit items-center rounded-full p-3 pr-5 hover:bg-gray-100 dark:hover:bg-gray-700">
                                 <UserIcon className="h-7 w-7" />
                                 <span
