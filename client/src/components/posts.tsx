@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AuthState, setPosts } from "../redux";
 import PostView from "./post";
@@ -54,7 +54,7 @@ const Posts = ({
     return fetching ? (
         <Spinner />
     ) : (
-        <div className="flex flex-col gap-3">
+        <div className="flex w-full flex-col gap-3">
             {posts?.length ? (
                 posts?.map((post) => <PostView post={post} key={post._id} />)
             ) : (

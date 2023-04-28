@@ -61,7 +61,7 @@ const PostView = ({ post }: { post: Post }) => {
     };
 
     return (
-        <div className="flex flex-col gap-3 rounded-md bg-slate-400 p-4 dark:bg-slate-800">
+        <div className="flex flex-col gap-3 bg-slate-400 p-4 dark:bg-slate-800 sm:rounded-md">
             <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
                     <Link to={`/profile/${post.userId}`}>

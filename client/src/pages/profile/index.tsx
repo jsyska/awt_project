@@ -1,13 +1,11 @@
-import React, { useEffect, useState } from "react";
-import Navbar from "../../components/navbar";
+import { useEffect, useState } from "react";
 import Posts from "../../components/posts";
 import { useParams } from "react-router";
 import UserProfileCard from "../../components/userProfileCard";
 import { useSelector } from "react-redux";
 import { AuthState } from "../../redux";
 import Spinner from "../../components/loadingSpinner";
-import Sidebar from "../../components/sidebar";
-import TempComponent from "../../components/tempComponent";
+import MainLayout from "../../components/layout";
 
 const ProfilePage = () => {
     const [user, setUser] = useState(null);
@@ -29,22 +27,16 @@ const ProfilePage = () => {
     }, []);
 
     return (
-        <div className="flex gap-3 px-52">
-            <div className="w-1/5">
-                <Sidebar />
-            </div>
-                {user ? (
-                    <div className="flex w-2/4 flex-col gap-3 mt-5">
-                        <UserProfileCard user={user} />
-                        <Posts isProfile={true} userId={userId} />
-                    </div>
-                ) : (
-                    <Spinner />
-                )}
-            <div className="w-1/5">
-                <TempComponent />
-            </div>
-        </div>
+        <MainLayout>
+            {user ? (
+                <>
+                    <UserProfileCard user={user} />
+                    <Posts isProfile={true} userId={userId} />
+                </>
+            ) : (
+                <Spinner />
+            )}
+        </MainLayout>
     );
 };
 
