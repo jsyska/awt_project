@@ -92,7 +92,7 @@ const PostView = ({ post }: { post: Post }) => {
             <div className="flex">
                 <div className=" flex flex-1 items-center justify-center gap-2">
                     <RocketLaunchIcon
-                        className={`h-9 w-9 cursor-pointer rounded-md p-2 hover:bg-gray-300 dark:hover:bg-gray-600 
+                        className={`h-9 w-9 cursor-pointer rounded-md p-2 sm:hover:bg-gray-300 sm:dark:hover:bg-gray-600 
                         ${isLiked && "text-yellow-400"} 
                         ${likeEffect && "animate-like"}`}
                         onClick={() => {
