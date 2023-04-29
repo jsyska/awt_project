@@ -26,7 +26,7 @@ const UserProfileCard = ({ user }: { user: User }) => {
         : defaultImage;
 
     return (
-        <div className="flex w-full flex-col rounded-lg bg-slate-400 p-7 dark:bg-slate-800 ">
+        <div className="mt-4 flex w-full flex-col rounded-lg bg-slate-400 p-7 dark:bg-slate-800 ">
             <div className=" flex w-full flex-row place-content-between">
                 <img
                     src={profileImage}

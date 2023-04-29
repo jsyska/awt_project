@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AuthState, setPosts } from "../redux";
 import PostView from "./post";
 import Spinner from "./loadingSpinner";
 
 const Posts = ({
-    userId,
+    username,
     isProfile = false,
 }: {
     isProfile?: boolean;
-    userId?: string;
+    username?: string;
 }) => {
     const dispatch = useDispatch();
     const posts = useSelector((state: AuthState) => state.posts);
@@ -30,7 +30,7 @@ const Posts = ({
 
     const fetchSingleUserPosts = async () => {
         const response = await fetch(
-            `http://localhost:3001/posts/${userId}/posts`,
+            `http://localhost:3001/posts/${username}/posts`,
             {
                 method: "GET",
                 headers: {
@@ -54,7 +54,7 @@ const Posts = ({
     return fetching ? (
         <Spinner />
     ) : (
-        <div className="flex flex-col gap-3">
+        <div className="flex w-full flex-col gap-3">
             {posts?.length ? (
                 posts?.map((post) => <PostView post={post} key={post._id} />)
             ) : (

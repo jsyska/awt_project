@@ -3,8 +3,8 @@ import { Request, Response } from "express";
 
 export const getUser = async (req: Request, res: Response) => {
     try {
-        const id = req.params.id;
-        const user = await User.findById(id);
+        const username = req.params.username;
+        const user = await User.findOne({ username: username });
         res.status(200).json(user);
     } catch (err: any) {
         res.status(404).json({ errorMessages: err.message });
@@ -17,7 +17,9 @@ export const getUserFollowers = async (req: Request, res: Response) => {
         const user = await User.findById(id);
 
         if (!user?.followers) {
-            return res.status(404).json({ errorMessages: 'Followers not found.' });
+            return res
+                .status(404)
+                .json({ errorMessages: "Followers not found." });
         }
 
         const followers = await Promise.all(
@@ -32,12 +34,11 @@ export const getUserFollowers = async (req: Request, res: Response) => {
                 email: follower?.email,
                 imagePath: follower?.imagePath,
                 occupation: follower?.occupation,
-                country: follower?.country
+                country: follower?.country,
             };
         });
 
         res.status(200).json(formatted);
-
     } catch (err: any) {
         res.status(404).json({ errorMessages: err.message });
     }
@@ -49,7 +50,9 @@ export const getUserFollowing = async (req: Request, res: Response) => {
         const user = await User.findById(id);
 
         if (!user?.followings) {
-            return res.status(404).json({ errorMessages: 'followings not found.' });
+            return res
+                .status(404)
+                .json({ errorMessages: "followings not found." });
         }
 
         const followings = await Promise.all(
@@ -64,12 +67,11 @@ export const getUserFollowing = async (req: Request, res: Response) => {
                 email: follower?.email,
                 imagePath: follower?.imagePath,
                 occupation: follower?.occupation,
-                country: follower?.country
+                country: follower?.country,
             };
         });
 
         res.status(200).json(formatted);
-
     } catch (err: any) {
         res.status(404).json({ errorMessages: err.message });
     }
@@ -83,11 +85,13 @@ export const followUnfollowUser = async (req: Request, res: Response) => {
         const follower = await User.findById(followerId);
 
         if (!user) {
-            return res.status(404).json({ errorMessages: 'User not found.' });
+            return res.status(404).json({ errorMessages: "User not found." });
         }
 
         if (!follower) {
-            return res.status(404).json({ errorMessages: 'Follower not found.' });
+            return res
+                .status(404)
+                .json({ errorMessages: "Follower not found." });
         }
 
         if (user.followings.includes(followerId)) {
@@ -113,12 +117,11 @@ export const followUnfollowUser = async (req: Request, res: Response) => {
                 email: follower?.email,
                 imagePath: follower?.imagePath,
                 occupation: follower?.occupation,
-                country: follower?.country
+                country: follower?.country,
             };
         });
 
         res.status(200).json(formatted);
-
     } catch (err: any) {
         res.status(404).json({ errorMessages: err.message });
     }

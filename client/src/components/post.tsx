@@ -13,12 +13,12 @@ import { useState } from "react";
 dayjs.extend(relativeTime);
 
 const PostView = ({ post }: { post: Post }) => {
-    const userId = useSelector((state: AuthState) => state.user?._id);
+    const username = useSelector((state: AuthState) => state.user?.username);
     const token = useSelector((state: AuthState) => state.token);
     const [likeEffect, setLikeEffect] = useState(false);
 
-    const isLiked = userId
-        ? Boolean(Object.keys(post.likes).includes(userId))
+    const isLiked = username
+        ? Boolean(Object.keys(post.likes).includes(username))
         : false;
     const dispatch = useDispatch();
 
@@ -53,7 +53,7 @@ const PostView = ({ post }: { post: Post }) => {
                     Authorization: `Bearer ${token}`,
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ userId: userId }),
+                body: JSON.stringify({ username: username }),
             }
         );
         const data = await response.json();
@@ -61,10 +61,10 @@ const PostView = ({ post }: { post: Post }) => {
     };
 
     return (
-        <div className="flex flex-col gap-3 rounded-md bg-slate-400 p-4 dark:bg-slate-800">
+        <div className="flex flex-col gap-3 bg-slate-400 p-4 dark:bg-slate-800 sm:rounded-md">
             <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                    <Link to={`/profile/${post.userId}`}>
+                    <Link to={`/${post.username}`}>
                         <img
                             className="h-14 w-14 rounded-full bg-white object-cover hover:brightness-90"
                             src={profileImage}
@@ -72,7 +72,7 @@ const PostView = ({ post }: { post: Post }) => {
                         />
                     </Link>
                     <div className="flex flex-col">
-                        <Link to={`/profile/${post.userId}`}>
+                        <Link to={`/${post.username}`}>
                             <span className="font-bold hover:underline">{`${post.firstName} ${post.lastName}`}</span>
                         </Link>
                         <span>@{post.username ?? "username"}</span>
@@ -92,7 +92,7 @@ const PostView = ({ post }: { post: Post }) => {
             <div className="flex">
                 <div className=" flex flex-1 items-center justify-center gap-2">
                     <RocketLaunchIcon
-                        className={`h-9 w-9 cursor-pointer rounded-md p-2 hover:bg-gray-300 dark:hover:bg-gray-600 
+                        className={`h-9 w-9 cursor-pointer rounded-md p-2 sm:hover:bg-gray-300 sm:dark:hover:bg-gray-600 
                         ${isLiked && "text-yellow-400"} 
                         ${likeEffect && "animate-like"}`}
                         onClick={() => {
