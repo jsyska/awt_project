@@ -12,6 +12,7 @@ import {
 import useAutoResizeTextarea from "../hooks/UseAutoResizeTextarea";
 import EmojiPicker, { EmojiStyle } from "emoji-picker-react";
 import Spinner from "./loadingSpinner";
+import _appsettings from "../../../appsettings.json";
 
 const AddNewPost: React.FC = (): JSX.Element => {
     const dispatch = useDispatch();
@@ -24,6 +25,7 @@ const AddNewPost: React.FC = (): JSX.Element => {
     const [showEmojis, setShowEmojis] = useState(false);
     const { textareaRef, resizeTextarea } = useAutoResizeTextarea();
     const [postUploading, setPostUploading] = useState(false);
+    const serverUrl = _appsettings.CONFIG.ENVIRONMENT === "development" ? `${_appsettings.CONFIG.SERVER_RELATIVE_URL}:${_appsettings.CONFIG.PORT_NUMBER}` : "";
 
     const handlePost = async () => {
         setPostUploading(true);
@@ -35,7 +37,7 @@ const AddNewPost: React.FC = (): JSX.Element => {
             formData.append("picturePath", image.name);
         }
 
-        const response = await fetch("http://localhost:3001/posts", {
+        const response = await fetch(`${serverUrl}/posts`, {
             method: "POST",
             headers: {
                 Authorization: `Bearer ${token}`,

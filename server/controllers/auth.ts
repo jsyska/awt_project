@@ -3,6 +3,7 @@ import jwt from "jsonwebtoken";
 import User, { IUser, IUserResponse } from "../models/User";
 import { Request, Response } from "express";
 import { uploadToBlobStorage } from "../helpers/azureBlobStorage";
+import _appsettings from "../../appsettings.json";
 
 export const register = async (req: Request, res: Response) => {
   try {
@@ -55,7 +56,7 @@ export const login = async (req: Request, res: Response) => {
 
     const userResponse = user as IUserResponse;
 
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET as string);
+    const token = jwt.sign({ id: user._id }, _appsettings.CONFIG.JWT_SECRET as string);
 
     res.status(200).json({ token, user });
   } catch (err: any) {

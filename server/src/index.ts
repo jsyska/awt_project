@@ -13,6 +13,7 @@ import userRoutes from "../routes/users";
 import postRoutes from "../routes/posts";
 import { verifyToken } from "../middleware/auth";
 import { createPost } from "../controllers/posts";
+import _appsettings from "../../appsettings.json"
 // import User from "../models/User";
 // import Post from "../models/Post";
 // import { users, posts } from "../data/index";
@@ -33,8 +34,8 @@ app.use("/assets", express.static(path.join(__dirname, "../public/assets")));
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
-const PORT = process.env.PORT || 3000;
-const MONGO_URL = process.env.MONGO_URL || "";
+const PORT = _appsettings.CONFIG.PORT_NUMBER || 3000;
+const MONGO_URL = _appsettings.CONFIG.DATABASE_CONNECTION_STRING || "";
 
 app.post("/auth/register", upload.single("picture"), register);
 app.post("/posts", verifyToken, upload.single("picture"), createPost);
