@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import User, { IUser, IUserResponse } from "../models/User";
 import { Request, Response } from "express";
 import { uploadToBlobStorage } from "../helpers/azureBlobStorage";
-import _appsettings from "../../appsettings.json";
+import _appsettings from "../appSettings.json";
 
 export const register = async (req: Request, res: Response) => {
   try {

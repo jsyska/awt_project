@@ -7,13 +7,13 @@ import dotenv from "dotenv";
 import multer from "multer";
 import helmet from "helmet";
 import morgan from "morgan";
-import { register } from "../controllers/auth";
-import authRoutes from "../routes/auth";
-import userRoutes from "../routes/users";
-import postRoutes from "../routes/posts";
-import { verifyToken } from "../middleware/auth";
-import { createPost } from "../controllers/posts";
-import _appsettings from "../../appsettings.json"
+import { register } from "./controllers/auth";
+import authRoutes from "./routes/auth";
+import userRoutes from "./routes/users";
+import postRoutes from "./routes/posts";
+import { verifyToken } from "./middleware/auth";
+import { createPost } from "./controllers/posts";
+import _appsettings from "./appSettings.json"
 // import User from "../models/User";
 // import Post from "../models/Post";
 // import { users, posts } from "../data/index";
@@ -30,6 +30,15 @@ app.use(bodyParser.json({ limit: "30mb" }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use(cors());
 app.use("/assets", express.static(path.join(__dirname, "../public/assets")));
+app.use(express.static(path.join(__dirname, "..", "..", "client", "dist"))); 
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "..", "..","client", "dist",     
+  "index.html"));
+});
+console.log("dupa")
+console.log(path.resolve(__dirname, "..", "..","client", "dist",     
+"index.html"))
+
 
 const storage = multer.memoryStorage();
 const upload = multer({ storage });

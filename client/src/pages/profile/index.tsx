@@ -7,13 +7,13 @@ import { AuthState } from "../../redux";
 import Spinner from "../../components/loadingSpinner";
 import MainLayout from "../../components/layout";
 import { AwaitProps } from "react-router";
-import _appsettings from "../../../../appsettings.json";
+import _appsettings from "../../../appsettings.json";
 
 const ProfilePage = () => {
     const [user, setUser] = useState(null);
     const { username } = useParams();
     const token = useSelector((state: AuthState) => state.token);
-    const serverUrl = _appsettings.CONFIG.ENVIRONMENT === "development" ? `${_appsettings.CONFIG.SERVER_RELATIVE_URL}:${_appsettings.CONFIG.PORT_NUMBER}` : "";
+    const serverUrl = _appsettings.CONFIG.ENVIRONMENT === "development" ? `${_appsettings.CONFIG.SERVER_RELATIVE_URL}` : "";
 
     const getUser = async () => {
         const response = await fetch(

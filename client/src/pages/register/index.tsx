@@ -6,7 +6,7 @@ import FormInput from "../../components/formInput";
 import { countryList } from "../../assets/countries";
 import Dropzone from "react-dropzone";
 import { DocumentArrowUpIcon } from "@heroicons/react/24/solid";
-import _appsettings from "../../../../appsettings.json";
+import _appsettings from "../../../appsettings.json";
 
 interface RegistrationFormData {
   email: string;
@@ -23,7 +23,7 @@ interface RegistrationFormData {
 
 const RegisterPage = () => {
   const navigate = useNavigate();
-  const serverUrl = _appsettings.CONFIG.ENVIRONMENT === "development" ? `${_appsettings.CONFIG.SERVER_RELATIVE_URL}:${_appsettings.CONFIG.PORT_NUMBER}` : "";
+  const serverUrl = _appsettings.CONFIG.ENVIRONMENT === "development" ? `${_appsettings.CONFIG.SERVER_RELATIVE_URL}` : "";
 
   const initialValues: RegistrationFormData = {
     email: "",

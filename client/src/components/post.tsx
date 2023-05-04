@@ -9,7 +9,7 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import dayjs from "dayjs";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
-import _appsettings from "../../../appsettings.json";
+import _appsettings from "../../appsettings.json";
 
 dayjs.extend(relativeTime);
 
@@ -17,7 +17,7 @@ const PostView = ({ post }: { post: Post }) => {
     const username = useSelector((state: AuthState) => state.user?.username);
     const token = useSelector((state: AuthState) => state.token);
     const [likeEffect, setLikeEffect] = useState(false);
-    const serverUrl = _appsettings.CONFIG.ENVIRONMENT === "development" ? `${_appsettings.CONFIG.SERVER_RELATIVE_URL}:${_appsettings.CONFIG.PORT_NUMBER}` : "";
+    const serverUrl = _appsettings.CONFIG.ENVIRONMENT === "development" ? `${_appsettings.CONFIG.SERVER_RELATIVE_URL}` : "";
 
     const isLiked = username
         ? Boolean(Object.keys(post.likes).includes(username))

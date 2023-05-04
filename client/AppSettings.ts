@@ -4,22 +4,14 @@ import * as appSettingsData from './appSettings.json';
 export class AppSettings implements IAppSettingsData {
     private static instance: AppSettings;
     public CONFIG: {
-        DATABASE_CONNECTION_STRING: string;
         SERVER_RELATIVE_URL: string,
-        STORAGE_CONNECTION_STRING: string,
-        PORT_NUMBER: number,
-        JWT_SECRET: string,
         ENVIRONMENT: string
     };
 
 
     constructor() {
         this.CONFIG = {
-            DATABASE_CONNECTION_STRING: appSettingsData.CONFIG.DATABASE_CONNECTION_STRING,
             SERVER_RELATIVE_URL: appSettingsData.CONFIG.SERVER_RELATIVE_URL,
-            STORAGE_CONNECTION_STRING: appSettingsData.CONFIG.STORAGE_CONNECTION_STRING,
-            PORT_NUMBER: appSettingsData.CONFIG.PORT_NUMBER,
-            JWT_SECRET: appSettingsData.CONFIG.JWT_SECRET,
             ENVIRONMENT: appSettingsData.CONFIG.ENVIRONMENT
         }
     }

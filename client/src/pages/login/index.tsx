@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setLogin } from "../../redux";
 import FormInput from "../../components/formInput";
-import _appsettings from "../../../../appsettings.json";
+import _appsettings from "../../../appsettings.json";
 
 interface LoginFormData {
   email: string;
@@ -15,7 +15,7 @@ interface LoginFormData {
 const LoginPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const serverUrl = _appsettings.CONFIG.ENVIRONMENT === "development" ? `${_appsettings.CONFIG.SERVER_RELATIVE_URL}:${_appsettings.CONFIG.PORT_NUMBER}` : "";
+  const serverUrl = _appsettings.CONFIG.ENVIRONMENT === "development" ? `${_appsettings.CONFIG.SERVER_RELATIVE_URL}` : "";
 
   const initialValues: LoginFormData = {
     email: "",
