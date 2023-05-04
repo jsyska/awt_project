@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setLogin } from "../../redux";
 import FormInput from "../../components/formInput";
-import _appsettings from "../../../appsettings.json";
+import _appsettings from "../../../appSettings.json";
 
 interface LoginFormData {
   email: string;

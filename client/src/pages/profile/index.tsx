@@ -7,7 +7,7 @@ import { AuthState } from "../../redux";
 import Spinner from "../../components/loadingSpinner";
 import MainLayout from "../../components/layout";
 import { AwaitProps } from "react-router";
-import _appsettings from "../../../appsettings.json";
+import _appsettings from "../../../appSettings.json";
 
 const ProfilePage = () => {
     const [user, setUser] = useState(null);

@@ -12,7 +12,7 @@ import {
 import useAutoResizeTextarea from "../hooks/UseAutoResizeTextarea";
 import EmojiPicker, { EmojiStyle } from "emoji-picker-react";
 import Spinner from "./loadingSpinner";
-import _appsettings from "../../appsettings.json";
+import _appsettings from "../../appSettings.json";
 
 const AddNewPost: React.FC = (): JSX.Element => {
     const dispatch = useDispatch();

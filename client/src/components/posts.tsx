@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AuthState, setPosts } from "../redux";
 import PostView from "./post";
 import Spinner from "./loadingSpinner";
-import _appsettings from "../../appsettings.json"
+import _appsettings from "../../appSettings.json"
 
 const Posts = ({
     username,

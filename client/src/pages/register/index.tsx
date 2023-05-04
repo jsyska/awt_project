@@ -6,7 +6,7 @@ import FormInput from "../../components/formInput";
 import { countryList } from "../../assets/countries";
 import Dropzone from "react-dropzone";
 import { DocumentArrowUpIcon } from "@heroicons/react/24/solid";
-import _appsettings from "../../../appsettings.json";
+import _appsettings from "../../../appSettings.json";
 
 interface RegistrationFormData {
   email: string;

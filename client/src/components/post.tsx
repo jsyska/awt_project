@@ -9,7 +9,7 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import dayjs from "dayjs";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
-import _appsettings from "../../appsettings.json";
+import _appsettings from "../../appSettings.json";
 
 dayjs.extend(relativeTime);
 
