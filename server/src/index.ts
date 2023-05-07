@@ -76,5 +76,5 @@ mongoose
 
 
   app.use("*", (req: Request, res: Response) => {
-    res.status(404).sendFile(path.join(__dirname, "./public/assets/404page.html"));
+    res.status(404).sendFile(path.join(__dirname, "./public/404page.html"));
   });
