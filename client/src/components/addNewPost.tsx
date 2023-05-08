@@ -10,7 +10,7 @@ import {
     PaperAirplaneIcon,
 } from "@heroicons/react/20/solid";
 import useAutoResizeTextarea from "../hooks/UseAutoResizeTextarea";
-import EmojiPicker, { EmojiStyle } from "emoji-picker-react";
+import EmojiPicker, { EmojiStyle, Theme } from "emoji-picker-react";
 import Spinner from "./loadingSpinner";
 import _appsettings from "../../appSettings.json";
 
@@ -152,6 +152,7 @@ const AddNewPost: React.FC = (): JSX.Element => {
                                             setPost(post + emoji.emoji);
                                             setShowEmojis(false);
                                         }}
+                                        theme={Theme.DARK}
                                     />
                                 )}
                             </div>
