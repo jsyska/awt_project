@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "copy:assets": "cpx \"src/public/**\" \"dist/public\"",
     "start": "node dist/index.js",
-    "build": "tsc",
+    "build": "tsc && npm run copy:assets",
     "dev": "nodemon --watch \"src/**/*.ts\" --ignore \"src/**/*.spec.ts\" --exec ts-node src/index.ts"
   },
   "keywords": [],
@@ -16,6 +17,7 @@
     "@azure/storage-blob": "^12.13.0",
     "bcrypt": "^5.1.0",
     "cors": "^2.8.5",
+    "cpx": "^1.5.0",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "helmet": "^6.0.1",

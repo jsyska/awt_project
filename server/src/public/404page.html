@@ -130,7 +130,14 @@
       }
 
       .bg-purple {
-        background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(12,12,105,1) 88%, rgba(8,52,129,1) 100%);
+        background: rgb(2, 0, 36);
+        background: linear-gradient(
+          90deg,
+          rgba(2, 0, 36, 1) 0%,
+          rgba(13, 40, 89, 1) 73%,
+          rgba(13, 41, 93, 1) 78%,
+          rgba(8, 52, 129, 1) 100%
+        );
         background-repeat: repeat-x;
         background-size: cover;
         background-position: left top;
@@ -138,76 +145,12 @@
         overflow: hidden;
       }
 
-      .custom-navbar {
-        padding-top: 15px;
-      }
-
-      .brand-logo {
-        margin-left: 25px;
-        margin-top: 5px;
-        display: inline-block;
-      }
-
-      .navbar-links {
-        display: inline-block;
-        float: right;
-        margin-right: 15px;
-        text-transform: uppercase;
-      }
-
-      ul {
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-        /*    overflow: hidden;*/
-        display: flex;
-        align-items: center;
-      }
-
-      li {
-        float: left;
-        padding: 0px 15px;
-      }
-
-      li a {
-        display: block;
-        color: white;
-        text-align: center;
-        text-decoration: none;
-        letter-spacing: 2px;
-        font-size: 12px;
-
-        -webkit-transition: all 0.3s ease-in;
-        -moz-transition: all 0.3s ease-in;
-        -ms-transition: all 0.3s ease-in;
-        -o-transition: all 0.3s ease-in;
-        transition: all 0.3s ease-in;
-      }
-
-      li a:hover {
-        color: #ffcb39;
-      }
-
-      .btn-request {
-        padding: 10px 25px;
-        border: 1px solid #ffcb39;
-        border-radius: 100px;
-        font-weight: 400;
-      }
-
-      .btn-request:hover {
-        background-color: #ffcb39;
-        color: #fff;
-        transform: scale(1.05);
-        box-shadow: 0px 20px 20px rgba(0, 0, 0, 0.1);
-      }
-
       .btn-go-home {
         position: relative;
         z-index: 200;
         margin: 15px auto;
-        width: 100px;
-        padding: 10px 15px;
+        width: 200px;
+        padding: 15px 15px;
         border: 1px solid #ffcb39;
         border-radius: 100px;
         font-weight: 400;
@@ -216,7 +159,7 @@
         text-align: center;
         text-decoration: none;
         letter-spacing: 2px;
-        font-size: 11px;
+        font-size: 20px;
 
         -webkit-transition: all 0.3s ease-in;
         -moz-transition: all 0.3s ease-in;
@@ -233,7 +176,6 @@
       }
 
       .central-body {
-        /*    width: 100%;*/
         padding: 17% 5% 10% 5%;
         text-align: center;
       }
@@ -249,7 +191,8 @@
         transform: translateX(-50px);
         top: 75%;
         pointer-events: none;
-        animation: rocket-movement 200s linear infinite both running;
+        animation: rocket-movement 50s linear infinite both running;
+        width: 80px;
       }
 
       .object_earth {
@@ -257,20 +200,20 @@
         top: 20%;
         left: 15%;
         z-index: 90;
-        /*    animation: spin-earth 100s infinite linear both;*/
+        animation: spin-earth 100s infinite linear both;
+        width: 300px;
       }
 
       .object_moon {
         position: absolute;
         top: 12%;
         left: 25%;
-      }
-
-      .earth-moon {
+        width: 130px;
       }
 
       .object_astronaut {
         animation: rotate-astronaut 200s infinite linear both alternate;
+        width: 250px;
       }
 
       .box_astronaut {
@@ -286,6 +229,7 @@
         position: relative;
         z-index: 100;
         pointer-events: none;
+        width: 400px;
       }
 
       .stars {
@@ -299,8 +243,8 @@
         position: absolute;
         border-radius: 100%;
         background-color: #fff;
-        width: 3px;
-        height: 3px;
+        width: 5px;
+        height: 5px;
         opacity: 0.3;
         will-change: opacity;
       }
@@ -332,24 +276,37 @@
       }
 
       @media only screen and (max-width: 600px) {
-        .navbar-links {
-          display: none;
+        .object_moon {
+          position: absolute;
+          top: 3%;
+          left: 65%;
         }
 
-        .custom-navbar {
-          text-align: center;
+        .object_earth {
+          top: 5%;
+          left: 20%;
+          width: 200px;
         }
 
-        .brand-logo img {
-          width: 120px;
+        .image-404 {
+          width: 250px;
+        }
+
+        .object_astronaut {
+          width: 150px;
+        }
+
+        .object_rocket {
+          width: 50px;
         }
 
         .box_astronaut {
           top: 70%;
+          right: 10%;
         }
 
         .central-body {
-          padding-top: 25%;
+          padding-top: 70%;
         }
       }
     </style>
@@ -360,38 +317,28 @@
         <img
           class="image-404"
           src="https://netizenspacestorage.blob.core.windows.net/assets/404.svg"
-          width="300px"
         />
-        <a
-          href="/"
-          class="btn-go-home"
-          target="_blank"
-          >GO BACK HOME</a
-        >
+        <a href="/" class="btn-go-home" target="_blank">GO BACK HOME</a>
       </div>
       <div class="objects">
         <img
           class="object_rocket"
           src="https://netizenspacestorage.blob.core.windows.net/assets/rocket.svg"
-          width="40px"
         />
         <div class="earth-moon">
           <img
             class="object_earth"
             src="https://netizenspacestorage.blob.core.windows.net/assets/earth.svg"
-            width="100px"
           />
           <img
             class="object_moon"
             src="https://netizenspacestorage.blob.core.windows.net/assets/moon.svg"
-            width="80px"
           />
         </div>
         <div class="box_astronaut">
           <img
             class="object_astronaut"
             src="https://netizenspacestorage.blob.core.windows.net/assets/astronaut.svg"
-            width="140px"
           />
         </div>
       </div>
