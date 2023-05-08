@@ -1,10 +1,10 @@
 import { BlobSASPermissions, BlobServiceClient } from "@azure/storage-blob";
 import dotenv from "dotenv";
 import path from "path";
+import _appsettings from "../appSettings.json"
 
 dotenv.config({ path: path.join(__dirname, "..", ".env") });
-const AZURE_STORAGE_CONNECTION_STRING = process.env
-  .AZURE_STORAGE_CONNECTION_STRING as string;
+const AZURE_STORAGE_CONNECTION_STRING = _appsettings.CONFIG.STORAGE_CONNECTION_STRING as string;
 
 export const uploadToBlobStorage = async (
   containerName: string,

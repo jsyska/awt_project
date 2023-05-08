@@ -6,6 +6,7 @@ import FormInput from "../../components/formInput";
 import { countryList } from "../../assets/countries";
 import Dropzone from "react-dropzone";
 import { DocumentArrowUpIcon } from "@heroicons/react/24/solid";
+import _appsettings from "../../../appSettings.json";
 
 interface RegistrationFormData {
   email: string;
@@ -22,6 +23,7 @@ interface RegistrationFormData {
 
 const RegisterPage = () => {
   const navigate = useNavigate();
+  const serverUrl = _appsettings.CONFIG.ENVIRONMENT === "development" ? `${_appsettings.CONFIG.SERVER_RELATIVE_URL}` : "";
 
   const initialValues: RegistrationFormData = {
     email: "",
@@ -70,7 +72,7 @@ const RegisterPage = () => {
     values.picture && formData.append("picture", values.picture);
 
     const savedUserResponse = await fetch(
-      "http://localhost:3001/auth/register",
+      `${serverUrl}/auth/register`,
       {
         method: "POST",
         body: formData,

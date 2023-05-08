@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AuthState, setPosts } from "../redux";
 import PostView from "./post";
 import Spinner from "./loadingSpinner";
+import _appsettings from "../../appSettings.json"
 
 const Posts = ({
     username,
@@ -15,9 +16,10 @@ const Posts = ({
     const posts = useSelector((state: AuthState) => state.posts);
     const token = useSelector((state: AuthState) => state.token);
     const [fetching, setFetching] = useState(true);
+    const serverUrl = _appsettings.CONFIG.ENVIRONMENT === "development" ? `${_appsettings.CONFIG.SERVER_RELATIVE_URL}` : "";
 
     const fetchPosts = async () => {
-        const response = await fetch("http://localhost:3001/posts/feed", {
+        const response = await fetch(`${serverUrl}/posts/feed`, {
             method: "GET",
             headers: {
                 Authorization: `Bearer ${token}`,
@@ -30,7 +32,7 @@ const Posts = ({
 
     const fetchSingleUserPosts = async () => {
         const response = await fetch(
-            `http://localhost:3001/posts/${username}/posts`,
+            `${serverUrl}/posts/${username}/posts`,
             {
                 method: "GET",
                 headers: {
