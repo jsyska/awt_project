@@ -17,7 +17,10 @@ const PostView = ({ post }: { post: Post }) => {
     const username = useSelector((state: AuthState) => state.user?.username);
     const token = useSelector((state: AuthState) => state.token);
     const [likeEffect, setLikeEffect] = useState(false);
-    const serverUrl = _appsettings.CONFIG.ENVIRONMENT === "development" ? `${_appsettings.CONFIG.SERVER_RELATIVE_URL}` : "";
+    const serverUrl =
+        _appsettings.CONFIG.ENVIRONMENT === "development"
+            ? `${_appsettings.CONFIG.SERVER_RELATIVE_URL}`
+            : "";
 
     const isLiked = username
         ? Boolean(Object.keys(post.likes).includes(username))
@@ -47,17 +50,14 @@ const PostView = ({ post }: { post: Post }) => {
         : postDate.format("DD MMM");
 
     const patchLike = async () => {
-        const response = await fetch(
-            `${serverUrl}/posts/${post._id}/like`,
-            {
-                method: "PATCH",
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ username: username }),
-            }
-        );
+        const response = await fetch(`${serverUrl}/posts/${post._id}/like`, {
+            method: "PATCH",
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ username: username }),
+        });
         const data = await response.json();
         dispatch(setPost({ post: data }));
     };
@@ -82,7 +82,9 @@ const PostView = ({ post }: { post: Post }) => {
                 </div>
                 <div>{displayDate} </div>
             </div>
-            <div className="text-xl">{post.description}</div>
+            <Link to={`/status/${post._id}`}>
+                <div className="text-xl">{post.description}</div>
+            </Link>
             {image && (
                 <img
                     className="mx-auto h-auto rounded-lg"
