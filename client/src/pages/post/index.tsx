@@ -43,6 +43,11 @@ const PostPage = () => {
                             alt="image description"
                         />
                     )}
+                    {post.comments.map((comment) => (
+                        <div key={comment.username + comment.comment}>
+                            {comment.username} - {comment.comment}
+                        </div>
+                    ))}
                 </>
             ) : (
                 <Spinner />

@@ -25,31 +25,40 @@ const AddNewPost: React.FC = (): JSX.Element => {
     const [showEmojis, setShowEmojis] = useState(false);
     const { textareaRef, resizeTextarea } = useAutoResizeTextarea();
     const [postUploading, setPostUploading] = useState(false);
-    const serverUrl = _appsettings.CONFIG.ENVIRONMENT === "development" ? `${_appsettings.CONFIG.SERVER_RELATIVE_URL}` : "";
+    const serverUrl =
+        _appsettings.CONFIG.ENVIRONMENT === "development"
+            ? `${_appsettings.CONFIG.SERVER_RELATIVE_URL}`
+            : "";
 
     const handlePost = async () => {
-        setPostUploading(true);
-        const formData = new FormData();
-        formData.append("username", username);
-        formData.append("description", post);
-        if (image) {
-            formData.append("picture", image);
-            formData.append("picturePath", image.name);
-        }
+        try {
+            setPostUploading(true);
+            const formData = new FormData();
+            formData.append("username", username);
+            formData.append("description", post);
+            if (image) {
+                formData.append("picture", image);
+                formData.append("picturePath", image.name);
+            }
 
-        const response = await fetch(`${serverUrl}/posts`, {
-            method: "POST",
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-            body: formData,
-        });
-        const posts = await response.json();
-        dispatch(setPosts({ posts: posts }));
-        setImage(null);
-        setPost("");
-        setIsImage(false);
-        setPostUploading(false);
+            console.log(formData.get("username"));
+
+            const response = await fetch(`${serverUrl}/posts`, {
+                method: "POST",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+                body: formData,
+            });
+            const posts = await response.json();
+            dispatch(setPosts({ posts: posts }));
+            setImage(null);
+            setPost("");
+            setIsImage(false);
+            setPostUploading(false);
+        } catch (err) {
+            console.log(err);
+        }
     };
 
     return (

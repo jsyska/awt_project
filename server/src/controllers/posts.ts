@@ -28,9 +28,8 @@ export const createPost = async (req: Request, res: Response) => {
             imagePath,
             userImagePath: user?.imagePath,
             likes: {},
-            comments: {},
+            comments: [],
         });
-        console.log(newPost);
 
         await newPost.save();
         const post = await Post.find().sort({ createdAt: "desc" });
@@ -91,6 +90,31 @@ export const likePost = async (req: Request, res: Response) => {
         const updatedPost = await Post.findByIdAndUpdate(
             id,
             { likes: post.likes },
+            { new: true }
+        );
+
+        res.status(200).json(updatedPost);
+    } catch (err: any) {
+        res.status(404).json({ errorMessages: err.message });
+    }
+};
+
+export const commentPost = async (req: Request, res: Response) => {
+    try {
+        const id = req.params.id;
+        const username = req.body.username;
+        const comment = req.body.comment;
+        const post = await Post.findById(id);
+
+        if (!post) {
+            return res.status(404).json({ errorMessages: "Post not found." });
+        }
+
+        post.comments.push({ username, comment });
+
+        const updatedPost = await Post.findByIdAndUpdate(
+            id,
+            { comments: post.comments },
             { new: true }
         );
 

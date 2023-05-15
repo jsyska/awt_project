@@ -15,6 +15,11 @@ export interface User {
     updatedAt?: Number;
 }
 
+interface Comment {
+    username: string;
+    comment: string;
+}
+
 export interface Post {
     _id: string;
     userId: string;
@@ -25,7 +30,7 @@ export interface Post {
     userImagePath: string;
     imagePath: string;
     likes: Map<string, boolean>;
-    comments: Map<string, string>;
+    comments: Array<Comment>;
     createdAt?: Number;
     updatedAt?: Number;
 }
