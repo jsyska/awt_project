@@ -6,9 +6,9 @@ import ChatPage from "./pages/chat";
 import ProfilePage from "./pages/profile";
 import { useSelector } from "react-redux";
 import { AuthState } from "./redux";
+import PostPage from "./pages/post";
 
 function App() {
-    
     // if (
     //     localStorage.theme === "dark" ||
     //     (!("theme" in localStorage) &&
@@ -34,6 +34,10 @@ function App() {
                 <Route
                     path="/chat"
                     element={isAuth ? <ChatPage /> : <Navigate to="/login" />}
+                />
+                <Route
+                    path="/status/:postId"
+                    element={isAuth ? <PostPage /> : <Navigate to="/login" />}
                 />
                 <Route
                     path="/:username"

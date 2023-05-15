@@ -13,16 +13,16 @@ const ProfilePage = () => {
     const [user, setUser] = useState(null);
     const { username } = useParams();
     const token = useSelector((state: AuthState) => state.token);
-    const serverUrl = _appsettings.CONFIG.ENVIRONMENT === "development" ? `${_appsettings.CONFIG.SERVER_RELATIVE_URL}` : "";
+    const serverUrl =
+        _appsettings.CONFIG.ENVIRONMENT === "development"
+            ? `${_appsettings.CONFIG.SERVER_RELATIVE_URL}`
+            : "";
 
     const getUser = async () => {
-        const response = await fetch(
-            `${serverUrl}/users/${username}`,
-            {
-                method: "GET",
-                headers: { Authorization: `Bearer ${token}` },
-            }
-        );
+        const response = await fetch(`${serverUrl}/users/${username}`, {
+            method: "GET",
+            headers: { Authorization: `Bearer ${token}` },
+        });
         const data = await response.json();
         setUser(data);
     };

@@ -1,5 +1,10 @@
 import mongoose from "mongoose";
 
+interface IComment {
+    username: string;
+    comment: string;
+}
+
 export interface IPost extends mongoose.Document {
     _id: mongoose.Types.ObjectId;
     userId: string;
@@ -10,7 +15,7 @@ export interface IPost extends mongoose.Document {
     userImagePath: string;
     imagePath: string;
     likes: Map<string, boolean>;
-    comments: Map<string, string>;
+    comments: Array<IComment>;
     createdAt?: Number;
     updatedAt?: Number;
 }
@@ -40,10 +45,18 @@ const postSchema = new mongoose.Schema<IPost>(
             type: Map,
             of: Boolean,
         },
-        comments: {
-            type: Map,
-            of: String,
-        },
+        comments: [
+            {
+                username: {
+                    type: String,
+                    required: true,
+                },
+                comment: {
+                    type: String,
+                    required: true,
+                },
+            },
+        ],
     },
     { timestamps: true }
 );

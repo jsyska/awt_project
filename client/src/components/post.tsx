@@ -3,6 +3,7 @@ import {
     RocketLaunchIcon,
     ChatBubbleBottomCenterTextIcon,
     ShareIcon,
+    PaperAirplaneIcon,
 } from "@heroicons/react/24/solid";
 import { Link } from "react-router-dom";
 import relativeTime from "dayjs/plugin/relativeTime";
@@ -10,6 +11,7 @@ import dayjs from "dayjs";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import _appsettings from "../../appSettings.json";
+import Spinner from "./loadingSpinner";
 
 dayjs.extend(relativeTime);
 
@@ -17,7 +19,14 @@ const PostView = ({ post }: { post: Post }) => {
     const username = useSelector((state: AuthState) => state.user?.username);
     const token = useSelector((state: AuthState) => state.token);
     const [likeEffect, setLikeEffect] = useState(false);
-    const serverUrl = _appsettings.CONFIG.ENVIRONMENT === "development" ? `${_appsettings.CONFIG.SERVER_RELATIVE_URL}` : "";
+    const [commenting, setCommenting] = useState(false);
+    const [comment, setComment] = useState("");
+    const [commentUploading, setCommentUploading] = useState(false);
+
+    const serverUrl =
+        _appsettings.CONFIG.ENVIRONMENT === "development"
+            ? `${_appsettings.CONFIG.SERVER_RELATIVE_URL}`
+            : "";
 
     const isLiked = username
         ? Boolean(Object.keys(post.likes).includes(username))
@@ -47,19 +56,33 @@ const PostView = ({ post }: { post: Post }) => {
         : postDate.format("DD MMM");
 
     const patchLike = async () => {
-        const response = await fetch(
-            `${serverUrl}/posts/${post._id}/like`,
-            {
-                method: "PATCH",
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ username: username }),
-            }
-        );
+        const response = await fetch(`${serverUrl}/posts/${post._id}/like`, {
+            method: "PATCH",
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ username: username }),
+        });
         const data = await response.json();
         dispatch(setPost({ post: data }));
+    };
+
+    const postComment = async () => {
+        setCommentUploading(true);
+        const response = await fetch(`${serverUrl}/posts/${post._id}/comment`, {
+            method: "PATCH",
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ username: username, comment: comment }),
+        });
+        const data = await response.json();
+        dispatch(setPost({ post: data }));
+        setCommentUploading(false);
+        setComment("");
+        setCommenting(false);
     };
 
     return (
@@ -82,7 +105,9 @@ const PostView = ({ post }: { post: Post }) => {
                 </div>
                 <div>{displayDate} </div>
             </div>
-            <div className="text-xl">{post.description}</div>
+            <Link to={`/status/${post._id}`}>
+                <div className="text-xl">{post.description}</div>
+            </Link>
             {image && (
                 <img
                     className="mx-auto h-auto rounded-lg"
@@ -108,13 +133,35 @@ const PostView = ({ post }: { post: Post }) => {
                     <span>{Object.keys(post.likes)?.length}</span>
                 </div>
                 <div className="flex flex-1 items-center justify-center gap-2">
-                    <ChatBubbleBottomCenterTextIcon className="h-9 w-9 cursor-pointer rounded-md p-2 hover:bg-gray-300 dark:hover:bg-gray-600" />
+                    <ChatBubbleBottomCenterTextIcon
+                        onClick={() => setCommenting(!commenting)}
+                        className="h-9 w-9 cursor-pointer rounded-md p-2 hover:bg-gray-300 dark:hover:bg-gray-600"
+                    />
                     <span>{Object.keys(post.comments)?.length}</span>
                 </div>
                 <div className="flex flex-1 items-center justify-center gap-2">
                     <ShareIcon className="h-9 w-9 cursor-pointer rounded-md p-2 hover:bg-gray-300 dark:hover:bg-gray-600" />
                 </div>
             </div>
+            {commenting && (
+                <div className="flex items-center gap-5 px-4">
+                    <input
+                        placeholder="Add a comment..."
+                        type="text"
+                        onChange={(e) => setComment(e.target.value)}
+                        value={comment}
+                        className="w-full rounded-lg border-2 border-slate-600 bg-slate-700 p-2"
+                    />
+                    {commentUploading ? (
+                        <Spinner />
+                    ) : (
+                        <PaperAirplaneIcon
+                            onClick={postComment}
+                            className={`h-9 w-9 cursor-pointer rounded-md p-2 hover:bg-gray-300 dark:hover:bg-gray-600`}
+                        />
+                    )}
+                </div>
+            )}
         </div>
     );
 };
