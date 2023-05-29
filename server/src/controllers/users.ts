@@ -35,6 +35,7 @@ export const getUserFollowers = async (req: Request, res: Response) => {
                 imagePath: follower?.imagePath,
                 occupation: follower?.occupation,
                 country: follower?.country,
+                username: follower?.username
             };
         });
 
@@ -68,6 +69,7 @@ export const getUserFollowing = async (req: Request, res: Response) => {
                 imagePath: follower?.imagePath,
                 occupation: follower?.occupation,
                 country: follower?.country,
+                username: follower?.username
             };
         });
 
@@ -79,9 +81,9 @@ export const getUserFollowing = async (req: Request, res: Response) => {
 
 export const followUnfollowUser = async (req: Request, res: Response) => {
     try {
-        const id = req.params.id;
+        const userId = req.params.id;
         const followerId = req.params.followerId;
-        const user = await User.findById(id);
+        const user = await User.findById(userId);
         const follower = await User.findById(followerId);
 
         if (!user) {
@@ -96,10 +98,10 @@ export const followUnfollowUser = async (req: Request, res: Response) => {
 
         if (user.followings.includes(followerId)) {
             user.followings = user.followings.filter((id) => id !== followerId);
-            follower.followers = follower.followers.filter((id) => id !== id);
+            follower.followers = follower.followers.filter((id) => id !== userId);
         } else {
             user.followings.push(followerId);
-            follower.followers.push(id);
+            follower.followers.push(userId);
         }
 
         await user.save();
@@ -118,6 +120,7 @@ export const followUnfollowUser = async (req: Request, res: Response) => {
                 imagePath: follower?.imagePath,
                 occupation: follower?.occupation,
                 country: follower?.country,
+                username: follower?.username
             };
         });
 
