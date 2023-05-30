@@ -39,8 +39,8 @@ const ProfilePage = () => {
                     <Posts isProfile={true} username={username} />
                 </>
             ) : (
-                <Spinner />
-            )}
+    <Spinner />
+)}
         </MainLayout>
     );
 };

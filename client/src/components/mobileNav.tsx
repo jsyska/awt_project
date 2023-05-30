@@ -1,10 +1,12 @@
-import { Bars3Icon } from "@heroicons/react/24/solid";
+import { Bars3Icon, UserGroupIcon } from "@heroicons/react/24/solid";
 import { useState } from "react";
 import Sidebar from "./sidebar";
 import { Link } from "react-router-dom";
+import FollowersList from "./followersList";
 
 const MobileNav = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+    const [showFollowers, setShowFollowers] = useState(false);
     return (
         <>
             <div className="sticky top-0 left-0 flex w-screen items-center justify-between px-2 py-4 dark:bg-slate-900 sm:hidden">
@@ -23,9 +25,10 @@ const MobileNav = () => {
                         🚀
                     </span>
                 </Link>
-                <div className="w-7"></div>
+                <div className="w-7"><UserGroupIcon onClick={() => {setShowFollowers(!showFollowers)}}/></div>
             </div>
             {isSidebarOpen && <Sidebar isMobile={true} />}
+            {showFollowers && <FollowersList isMobile={true}/>}
         </>
     );
 };

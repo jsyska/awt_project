@@ -2,6 +2,7 @@ import React from "react";
 import TempComponent from "./tempComponent";
 import Sidebar from "./sidebar";
 import MobileNav from "./mobileNav";
+import FollowersList, { UserType } from "./followersList";
 
 type MainLayoutProps = {
     children: React.ReactNode;
@@ -19,7 +20,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
                     {children}
                 </div>
                 <div className="hidden w-fit lg:inline ">
-                    <TempComponent />
+                    <FollowersList/>
                 </div>
             </div>
         </>

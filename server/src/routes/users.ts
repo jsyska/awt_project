@@ -10,8 +10,8 @@ import { verifyToken } from "../middleware/auth";
 const router = express.Router();
 
 router.get("/:username", verifyToken, getUser);
-router.get("/:username/followers", verifyToken, getUserFollowers);
-router.get("/:username/followings", verifyToken, getUserFollowing);
-router.put("/:username/:followerUsername", verifyToken, followUnfollowUser);
+router.get("/:id/followers", verifyToken, getUserFollowers);
+router.get("/:id/followings", verifyToken, getUserFollowing);
+router.put("/:id/:followerId", verifyToken, followUnfollowUser);
 
 export default router;
