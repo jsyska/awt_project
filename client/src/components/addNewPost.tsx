@@ -13,6 +13,8 @@ import useAutoResizeTextarea from "../hooks/UseAutoResizeTextarea";
 import EmojiPicker, { EmojiStyle, Theme } from "emoji-picker-react";
 import Spinner from "./loadingSpinner";
 import _appsettings from "../../appSettings.json";
+import toast, { Toaster } from 'react-hot-toast';
+
 
 const AddNewPost: React.FC = (): JSX.Element => {
     const dispatch = useDispatch();
@@ -51,6 +53,7 @@ const AddNewPost: React.FC = (): JSX.Element => {
                 body: formData,
             });
             const posts = await response.json();
+            addPostToast();
             dispatch(setPosts({ posts: posts }));
             setImage(null);
             setPost("");
@@ -61,9 +64,22 @@ const AddNewPost: React.FC = (): JSX.Element => {
         }
     };
 
+    const addPostToast = () => toast("Your post is now visible for everyone!", {
+        duration: 2500,
+        position: 'top-center',
+        icon: '👏',
+        style: {
+            background: '#333',
+            color: '#fff',
+        },
+
+    });
+
     return (
         <>
             <div className="my-4 w-full rounded-lg border border-gray-200 bg-gray-50 dark:border-gray-600 dark:bg-slate-800">
+                <Toaster />
+
                 <div className="rounded-t-lg bg-white px-4 py-2 dark:bg-slate-900">
                     <div className="flex flex-row">
                         <img
@@ -153,7 +169,7 @@ const AddNewPost: React.FC = (): JSX.Element => {
                                 onClick={() => setShowEmojis(!showEmojis)}
                                 className="inline-flex w-12 cursor-pointer justify-center rounded-lg p-2 text-white hover:bg-gray-100 dark:hover:bg-gray-600"
                             />
-                            <div className="left- absolute">
+                            <div className="absolute z-10">
                                 {showEmojis && (
                                     <EmojiPicker
                                         emojiStyle={EmojiStyle.NATIVE}
@@ -170,9 +186,8 @@ const AddNewPost: React.FC = (): JSX.Element => {
                     {!postUploading && (
                         <PaperAirplaneIcon
                             onClick={post ? handlePost : undefined}
-                            className={`${
-                                !post ? "hidden" : ""
-                            } inline-flex w-12 cursor-pointer justify-center rounded-lg p-2 text-white hover:bg-gray-100 dark:hover:bg-gray-600`}
+                            className={`${!post ? "hidden" : ""
+                                } inline-flex w-12 cursor-pointer justify-center rounded-lg p-2 text-white hover:bg-gray-100 dark:hover:bg-gray-600`}
                         />
                     )}
                     {postUploading && <Spinner />}

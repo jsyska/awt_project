@@ -91,13 +91,13 @@ const FollowersList = (props: IFollowerListProps) => {
 
     return (
         <>
-            <div className={`${props.isMobile ? "p-5 fixed z-40 h-screen w-screen bg-slate-900 text-2xl transition-transform" : "m-3"}`}>
-                <div className={`${props.isMobile ? "" : "w-80"} flex flex-row justify-center gap-3`}>
-                    <span onClick={() => { setType(UserType.FOLLOWING) }} className={`${type === UserType.FOLLOWING ? "border-b-2 border-white rounded-t-lg text-2xl dark:text-white " : "rounded-full text-sm dark:text-gray-400"} self-center whitespace-nowrap font-semibold p-2 xl:inline hover:bg-gray-100 dark:hover:bg-gray-700 hover:cursor-pointer`}>
-                        You follow
+            <div>
+                <div className={`flex flex-row justify-center gap-3`}>
+                    <span onClick={() => { setType(UserType.FOLLOWING) }} className={`${type === UserType.FOLLOWING ? "border-b-2 border-white dark:text-white " : " dark:text-gray-400"} text-xl self-center whitespace-nowrap font-semibold p-2 xl:inline hover:bg-gray-100 dark:hover:bg-gray-700 hover:cursor-pointer`}>
+                        Following
                     </span>
-                    <span onClick={() => { setType(UserType.FOLLOWER) }} className={`${type === UserType.FOLLOWER ? "border-b-2 border-white rounded-t-lg text-2xl dark:text-white " : "rounded-full text-sm dark:text-gray-400"} self-center whitespace-nowrap font-semibold p-2 hover:bg-gray-100 dark:hover:bg-gray-700 hover:cursor-pointer`}>
-                        Your followers
+                    <span onClick={() => { setType(UserType.FOLLOWER) }} className={`${type === UserType.FOLLOWER ? "border-b-2 border-white dark:text-white " : "dark:text-gray-400"} text-xl self-center whitespace-nowrap font-semibold p-2 hover:bg-gray-100 dark:hover:bg-gray-700 hover:cursor-pointer`}>
+                        Followers
                     </span>
                 </div>
                 {type === UserType.FOLLOWING && followings?.map((follower: any, index: any) => (
@@ -120,7 +120,8 @@ const FollowersList = (props: IFollowerListProps) => {
                 ))}
                 {type === UserType.FOLLOWER && followers?.map((follower: any, index: any) => (
                     <div key={`${index}-${follower._id}`} className="flex items-center justify-between mt-3">
-                        <div className="flex items-center">
+                    <Link to={`/${follower.username} `}>
+                        <div className="flex items-center hover:underline hover:brightness-90">
                             <img
                                 className="w-14 h-14 rounded-full object-cover"
                                 src={follower.imagePath}
@@ -128,6 +129,7 @@ const FollowersList = (props: IFollowerListProps) => {
                             />
                             <p className="ml-3 text-lg font-medium">{follower.firstName} {follower.lastName}</p>
                         </div>
+                    </Link>
                         <div onClick={() => unfollowUser(follower)} className="flex w-fit items-center rounded-full p-3 hover:bg-gray-100 dark:hover:bg-gray-700 hover:cursor-pointer">
                             {followButton(follower)}
                         </div>

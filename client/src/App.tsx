@@ -7,6 +7,7 @@ import ProfilePage from "./pages/profile";
 import { useSelector } from "react-redux";
 import { AuthState } from "./redux";
 import PostPage from "./pages/post";
+import HelpPage from "./pages/help";
 
 function App() {
     // if (
@@ -43,6 +44,11 @@ function App() {
                     path="/:username"
                     element={
                         isAuth ? <ProfilePage /> : <Navigate to="/login" />
+                    }
+                />
+                <Route
+                    path="/help"
+                    element={isAuth ? <HelpPage /> : <Navigate to="/login" />
                     }
                 />
             </Routes>

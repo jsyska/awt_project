@@ -53,9 +53,8 @@ const Sidebar = ({ isMobile = false }: { isMobile?: boolean }) => {
                             >
                                 <HomeIcon className="h-7 w-7" />
                                 <span
-                                    className={`ml-3 ${
-                                        !isMobile && "hidden xl:inline"
-                                    }`}
+                                    className={`ml-3 ${!isMobile && "hidden xl:inline"
+                                        }`}
                                 >
                                     Home
                                 </span>
@@ -67,9 +66,8 @@ const Sidebar = ({ isMobile = false }: { isMobile?: boolean }) => {
                             <div className="flex w-fit items-center rounded-full p-3 pr-5 hover:bg-gray-100 dark:hover:bg-gray-700">
                                 <EnvelopeIcon className="h-7 w-7" />
                                 <span
-                                    className={`ml-3 ${
-                                        !isMobile && "hidden xl:inline"
-                                    }`}
+                                    className={`ml-3 ${!isMobile && "hidden xl:inline"
+                                        }`}
                                 >
                                     Messages
                                 </span>
@@ -80,9 +78,8 @@ const Sidebar = ({ isMobile = false }: { isMobile?: boolean }) => {
                         <div className="flex w-fit items-center rounded-full p-3 pr-5 hover:bg-gray-100 dark:hover:bg-gray-700">
                             <BellIcon className="h-7 w-7" />
                             <span
-                                className={`ml-3 ${
-                                    !isMobile && "hidden xl:inline"
-                                }`}
+                                className={`ml-3 ${!isMobile && "hidden xl:inline"
+                                    }`}
                             >
                                 Notifications
                             </span>
@@ -93,9 +90,8 @@ const Sidebar = ({ isMobile = false }: { isMobile?: boolean }) => {
                             <div className="flex w-fit items-center rounded-full p-3 pr-5 hover:bg-gray-100 dark:hover:bg-gray-700">
                                 <UserIcon className="h-7 w-7" />
                                 <span
-                                    className={`ml-3 ${
-                                        !isMobile && "hidden xl:inline"
-                                    }`}
+                                    className={`ml-3 ${!isMobile && "hidden xl:inline"
+                                        }`}
                                 >
                                     Profile
                                 </span>
@@ -107,9 +103,8 @@ const Sidebar = ({ isMobile = false }: { isMobile?: boolean }) => {
                         <div className="flex w-fit items-center rounded-full p-3 pr-5 hover:bg-gray-100 dark:hover:bg-gray-700">
                             <StarIcon className="h-7 w-7" />
                             <span
-                                className={`ml-3 ${
-                                    !isMobile && "hidden xl:inline"
-                                }`}
+                                className={`ml-3 ${!isMobile && "hidden xl:inline"
+                                    }`}
                             >
                                 Upgrade to Pro
                             </span>
@@ -121,25 +116,25 @@ const Sidebar = ({ isMobile = false }: { isMobile?: boolean }) => {
                         <div className="flex w-fit items-center rounded-full p-3 pr-5 hover:bg-gray-100 dark:hover:bg-gray-700">
                             <Cog6ToothIcon className="h-7 w-7" />
                             <span
-                                className={`ml-3 ${
-                                    !isMobile && "hidden xl:inline"
-                                }`}
+                                className={`ml-3 ${!isMobile && "hidden xl:inline"
+                                    }`}
                             >
                                 Settings
                             </span>
                         </div>
                     </li>
                     <li>
-                        <div className="flex w-fit items-center rounded-full p-3 pr-5 hover:bg-gray-100 dark:hover:bg-gray-700">
-                            <QuestionMarkCircleIcon className="h-7 w-7" />
-                            <span
-                                className={`ml-3 ${
-                                    !isMobile && "hidden xl:inline"
-                                }`}
-                            >
-                                Help
-                            </span>
-                        </div>
+                        <Link to={"/help"}>
+                            <div className="flex w-fit items-center rounded-full p-3 pr-5 hover:bg-gray-100 dark:hover:bg-gray-700">
+                                <QuestionMarkCircleIcon className="h-7 w-7" />
+                                <span
+                                    className={`ml-3 ${!isMobile && "hidden xl:inline"
+                                        }`}
+                                >
+                                    Help
+                                </span>
+                            </div>
+                        </Link>
                     </li>
                     <li>
                         <div
@@ -148,9 +143,8 @@ const Sidebar = ({ isMobile = false }: { isMobile?: boolean }) => {
                         >
                             <ArrowLeftOnRectangleIcon className="h-7 w-7" />
                             <span
-                                className={`ml-3 ${
-                                    !isMobile && "hidden xl:inline"
-                                }`}
+                                className={`ml-3 ${!isMobile && "hidden xl:inline"
+                                    }`}
                             >
                                 Sign Out
                             </span>
