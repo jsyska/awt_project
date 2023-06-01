@@ -23,7 +23,10 @@ interface RegistrationFormData {
 
 const RegisterPage = () => {
   const navigate = useNavigate();
-  const serverUrl = _appsettings.CONFIG.ENVIRONMENT === "development" ? `${_appsettings.CONFIG.SERVER_RELATIVE_URL}` : "";
+  const serverUrl =
+    _appsettings.CONFIG.ENVIRONMENT === "development"
+      ? `${_appsettings.CONFIG.SERVER_RELATIVE_URL}`
+      : "";
 
   const initialValues: RegistrationFormData = {
     email: "",
@@ -71,13 +74,10 @@ const RegisterPage = () => {
     formData.append("country", values.country);
     values.picture && formData.append("picture", values.picture);
 
-    const savedUserResponse = await fetch(
-      `${serverUrl}/auth/register`,
-      {
-        method: "POST",
-        body: formData,
-      }
-    );
+    const savedUserResponse = await fetch(`${serverUrl}/auth/register`, {
+      method: "POST",
+      body: formData,
+    });
 
     const savedUser = await savedUserResponse.json();
     resetForm();
@@ -88,17 +88,14 @@ const RegisterPage = () => {
   };
 
   return (
-    <div className="flex flex-col">
-      <div className="flex items-center justify-center bg-slate-400 py-4 px-8 dark:bg-slate-800">
-        <div className="flex items-center justify-between gap-3">
-          <span className="text-3xl font-bold text-slate-200">
-            NETIZEN SPACE
-          </span>
-        </div>
-      </div>
-
-      <div className="flex items-center justify-center md:h-screen">
-        <div className="flex w-full bg-slate-400 p-7 dark:bg-slate-800 sm:w-4/5 md:w-3/5 md:rounded-lg xl:w-2/5">
+    <div className="flex justify-evenly overflow-auto bg-slate-800 md:bg-[#020917]">
+      <img
+        src="https://cdn.svgator.com/images/2021/10/solar-system-animation.svg"
+        alt="space"
+        className="hidden h-screen w-2/5 md:block"
+      />
+      <div className="flex items-center justify-center md:w-2/5">
+        <div className="flex w-screen bg-slate-400 p-7 dark:bg-slate-800 md:rounded-lg">
           <Formik
             initialValues={initialValues}
             validationSchema={validationSchema}
@@ -241,7 +238,7 @@ const RegisterPage = () => {
                 {/* Submit */}
                 <button
                   type="submit"
-                  className="mx-auto mt-3 w-2/3 rounded-lg bg-indigo-500 py-3 text-white"
+                  className="mx-auto mt-3 w-2/3 rounded-lg bg-indigo-600 py-3 text-white hover:bg-indigo-500"
                 >
                   SIGN UP
                 </button>
