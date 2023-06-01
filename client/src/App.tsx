@@ -7,6 +7,7 @@ import ProfilePage from "./pages/profile";
 import { useSelector } from "react-redux";
 import { AuthState } from "./redux";
 import PostPage from "./pages/post";
+import HelpPage from "./pages/help";
 
 function App() {
     // if (
@@ -32,10 +33,6 @@ function App() {
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/register" element={<RegisterPage />} />
                 <Route
-                    path="/chat"
-                    element={isAuth ? <ChatPage /> : <Navigate to="/login" />}
-                />
-                <Route
                     path="/status/:postId"
                     element={isAuth ? <PostPage /> : <Navigate to="/login" />}
                 />
@@ -43,6 +40,11 @@ function App() {
                     path="/:username"
                     element={
                         isAuth ? <ProfilePage /> : <Navigate to="/login" />
+                    }
+                />
+                <Route
+                    path="/help"
+                    element={isAuth ? <HelpPage /> : <Navigate to="/login" />
                     }
                 />
             </Routes>

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Posts from "../../components/posts";
-import { useParams } from "react-router";
+import { useLocation, useParams } from "react-router";
 import UserProfileCard from "../../components/userProfileCard";
 import { useSelector } from "react-redux";
 import { AuthState } from "../../redux";
@@ -10,6 +10,7 @@ import { AwaitProps } from "react-router";
 import _appsettings from "../../../appSettings.json";
 
 const ProfilePage = () => {
+    const location = useLocation();
     const [user, setUser] = useState(null);
     const { username } = useParams();
     const token = useSelector((state: AuthState) => state.token);
@@ -29,14 +30,14 @@ const ProfilePage = () => {
 
     useEffect(() => {
         getUser();
-    }, []);
+    }, [location.pathname]);
 
     return (
         <MainLayout>
             {user ? (
                 <>
                     <UserProfileCard user={user} />
-                    <Posts isProfile={true} username={username} />
+                    <Posts isProfile={true} username={username} user={user} />
                 </>
             ) : (
     <Spinner />

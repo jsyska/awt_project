@@ -10,6 +10,8 @@ import {
     UserMinusIcon,
 } from "@heroicons/react/24/solid";
 import _appsettings from "../../appSettings.json";
+import moment from "moment";
+
 
 
 const UserProfileCard = ({ user }: { user: User }) => {
@@ -59,12 +61,12 @@ const UserProfileCard = ({ user }: { user: User }) => {
 
     return (
         <div className=" shadow-xl pb-8 mt-4 flex w-full flex-col rounded-lg bg-slate-400 dark:bg-slate-800">
-            <div className="w-full h-[250px]">
+            <div className="w-full h-[200px]">
                 <img src="https://images.template.net/96814/space-star-background-vg59s.png" className="w-full h-full rounded-tl-lg rounded-tr-lg object-cover" />
             </div>
             <div className="flex flex-row">
                 <div className="flex flex-col pl-10 -mt-20">
-                    <img src={profileImage} className="w-40 h-40 border-4 border-white rounded-full object-cover" />
+                    <img src={profileImage} className="w-40 h-40 border-4 border-slate-800 rounded-full object-cover" />
                     <div className="flex flex-col mt-2 mb-3">
                         <p className="text-2xl">{user?.firstName} {user?.lastName}</p>
                         <p className="text-gray-400">@{user?.username}</p>
@@ -72,7 +74,7 @@ const UserProfileCard = ({ user }: { user: User }) => {
 
                     <div className="flex flex-row pt-2">
                         <CalendarIcon className="mt-1 h-5 w-5 dark:text-gray-400" />
-                        <p className="pl-2 text-gray-400 text-lg">Joined {user?.createdAt?.toString().split("T")[0]}</p>
+                        <p className="pl-2 text-gray-400 text-lg">Joined {moment(user?.createdAt?.toString()).format("LL")}</p>
                     </div>
 
                     <div className="flex flex-row">

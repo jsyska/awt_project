@@ -11,6 +11,15 @@ export const getUser = async (req: Request, res: Response) => {
     }
 };
 
+export const getUsers = async (req: Request, res: Response) => {
+    try {
+        const users = await User.find();
+        res.status(200).json(users);
+    } catch (err: any) {
+        res.status(404).json({ errorMessages: err.message });
+    }
+};
+
 export const getUserFollowers = async (req: Request, res: Response) => {
     try {
         const id = req.params.id;

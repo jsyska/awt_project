@@ -55,24 +55,6 @@ const Sidebar = ({ isMobile = false }: { isMobile?: boolean }) => {
             </Link>
           </li>
           <li>
-            <Link to={"/chat"}>
-              <div className="flex w-fit items-center rounded-full p-3 pr-5 hover:bg-gray-100 dark:hover:bg-gray-700">
-                <EnvelopeIcon className="h-7 w-7" />
-                <span className={`ml-3 ${!isMobile && "hidden xl:inline"}`}>
-                  Messages
-                </span>
-              </div>
-            </Link>
-          </li>
-          <li>
-            <div className="flex w-fit items-center rounded-full p-3 pr-5 hover:bg-gray-100 dark:hover:bg-gray-700">
-              <BellIcon className="h-7 w-7" />
-              <span className={`ml-3 ${!isMobile && "hidden xl:inline"}`}>
-                Notifications
-              </span>
-            </div>
-          </li>
-          <li>
             <Link to={`/${user?.username}`}>
               <div className="flex w-fit items-center rounded-full p-3 pr-5 hover:bg-gray-100 dark:hover:bg-gray-700">
                 <UserIcon className="h-7 w-7" />
@@ -82,7 +64,6 @@ const Sidebar = ({ isMobile = false }: { isMobile?: boolean }) => {
               </div>
             </Link>
           </li>
-
           <li>
             <a href="https://buy.stripe.com/test_bIY5n95LM7LF17W9AA">
               <div className="flex w-fit items-center rounded-full p-3 pr-5 hover:bg-gray-100 dark:hover:bg-gray-700">
@@ -96,20 +77,14 @@ const Sidebar = ({ isMobile = false }: { isMobile?: boolean }) => {
         </ul>
         <ul className="mt-4 w-fit space-y-2 font-medium">
           <li>
-            <div className="flex w-fit items-center rounded-full p-3 pr-5 hover:bg-gray-100 dark:hover:bg-gray-700">
-              <Cog6ToothIcon className="h-7 w-7" />
-              <span className={`ml-3 ${!isMobile && "hidden xl:inline"}`}>
-                Settings
-              </span>
-            </div>
-          </li>
-          <li>
+          <Link to={"/help"}>
             <div className="flex w-fit items-center rounded-full p-3 pr-5 hover:bg-gray-100 dark:hover:bg-gray-700">
               <QuestionMarkCircleIcon className="h-7 w-7" />
               <span className={`ml-3 ${!isMobile && "hidden xl:inline"}`}>
                 Help
               </span>
             </div>
+            </Link>
           </li>
           <li>
             <div

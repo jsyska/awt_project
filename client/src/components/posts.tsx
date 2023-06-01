@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { AuthState, Post, setPosts } from "../redux";
+import { AuthState, Post, setPosts, User } from "../redux";
 import PostView from "./post";
 import Spinner from "./loadingSpinner";
 import _appsettings from "../../appSettings.json";
@@ -8,9 +8,11 @@ import _appsettings from "../../appSettings.json";
 const Posts = ({
     username,
     isProfile = false,
+    user
 }: {
     isProfile?: boolean;
     username?: string;
+    user?: User;
 }) => {
     const dispatch = useDispatch();
     const posts = useSelector((state: AuthState) => state.posts);
@@ -55,17 +57,17 @@ const Posts = ({
         } else {
             fetchPosts();
         }
-    }, []);
+    }, [user]);
 
     return fetching ? (
         <Spinner />
     ) : (
         <div className="flex w-full flex-col gap-3">
-            {!isProfile && <div className="flex flex-row">
-                <span onClick={() => setShowAll(true)} className={`${showAll ? " border-b-2 border-b-white" : ""} w-1/2 text-center p-3 font-semibold hover:bg-slate-800 cursor-pointer`}>All</span>
-                <span onClick={() => setShowAll(false)} className={`${!showAll ? " border-b-2 border-b-white" : ""} w-1/2 text-center p-3 font-semibold hover:bg-slate-800 cursor-pointer`}>Following</span>
+            {!isProfile && <div className="flex flex-row sticky top-14 left-0 sm:top-0 bg-slate-900">
+                <span onClick={() => setShowAll(true)} className={`${showAll ? " border-b-2 border-b-white" : "dark:text-gray-400"} text-xl w-1/2 text-center p-3 font-semibold hover:bg-slate-800 cursor-pointer`}>All</span>
+                <span onClick={() => setShowAll(false)} className={`${!showAll ? " border-b-2 border-b-white" : "dark:text-gray-400"} text-xl w-1/2 text-center p-3 font-semibold hover:bg-slate-800 cursor-pointer`}>Following</span>
             </div>}
-            {(showAll && posts?.length) &&
+            {(showAll && posts?.length > 0) &&
                 posts?.map((post) => <PostView post={post} key={post._id} />)
             }
             {(!showAll && followingPosts?.length) &&
