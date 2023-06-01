@@ -33,10 +33,6 @@ function App() {
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/register" element={<RegisterPage />} />
                 <Route
-                    path="/chat"
-                    element={isAuth ? <ChatPage /> : <Navigate to="/login" />}
-                />
-                <Route
                     path="/status/:postId"
                     element={isAuth ? <PostPage /> : <Navigate to="/login" />}
                 />
